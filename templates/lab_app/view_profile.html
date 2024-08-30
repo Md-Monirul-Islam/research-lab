@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Your Profile</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        {% if profile.profile_photo %}
+                            <img src="{{ profile.profile_photo.url }}" class="rounded-circle mb-3" alt="{{ profile.name }}" width="150" height="150">
+                        {% else %}
+                            <img src="{% static 'default-profile.png' %}" class="rounded-circle mb-3" alt="Default profile picture" width="150" height="150">
+                        {% endif %}
+                    </div>
+                    <p><strong>Name:</strong> {{ profile.name }}</p>
+                    <p><strong>Position:</strong> {{ profile.position }}</p>
+                    <p><strong>Department:</strong> {{ profile.department }}</p>
+                    <p><strong>Affiliation:</strong> {{ profile.affiliation }}</p>
+                    <p><strong>Category:</strong> {{ profile.category.category }}</p>
+                    <!-- <p><strong>Biography:</strong> {{ profile.biography }}</p> -->
+                    <p><strong>Google Scholar:</strong> <a href="{{ profile.google_scholar }}" target="_blank">{{ profile.google_scholar }}</a></p>
+                    <p><strong>ResearchGate:</strong> <a href="{{ profile.research_gate }}" target="_blank">{{ profile.research_gate }}</a></p>
+                    <a href="{% url 'lab_app:update_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
+                    <a href="{% url 'lab_app:add_publication' %}" class="btn btn-primary mt-3">Add Publication</a>
+                    <a href="{% url 'lab_app:view_publications' %}" class="btn btn-primary mt-3">Publications List</a>
+                    <a href="{% url 'lab_app:add_education' %}" class="btn btn-primary mt-3">Add Education</a>
+                    <a href="{% url 'lab_app:view_education' %}" class="btn btn-primary mt-3">Education List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

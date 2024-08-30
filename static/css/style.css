@@ -1,3 +1,10 @@
+body {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
 /* Color of the links BEFORE scroll */
 .navbar-scroll .nav-link,
 .navbar-scroll .navbar-toggler-icon,
@@ -128,9 +135,9 @@ header{
   background-color: #0056b3;
 }
 
-.login_form{
+/* .login_form{
   margin-top: 20px;
-}
+} */
 
 
 
@@ -211,9 +218,9 @@ header{
   flex-direction: column;
 }
 
-.card-title {
+/* .card-title {
   font-weight: bold;
-}
+} */
 
 .card-text {
   margin-bottom: 1rem;
@@ -445,3 +452,89 @@ h2.text-primary {
   /* .footer-link:hover{
       color: #FD5602;
   } */
+
+
+  /* Signup form design */
+  .bg-gradient-primary {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+.form-control {
+    border-radius: 30px;
+}
+
+.btn-primary {
+    border-radius: 30px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+}
+
+
+/* Login form design */
+.bg-gradient-primary {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+}
+
+.form-control {
+  border-radius: 30px;
+}
+
+.btn-primary {
+  border-radius: 30px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #2575fc, #6a11cb);
+}
+
+
+/* Card design */
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.card-text {
+  color: #555;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+h1 {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 576px) {
+  .card-title {
+      font-size: 18px;
+  }
+
+  .card-text {
+      font-size: 12px;
+  }
+}

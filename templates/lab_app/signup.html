@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-gradient-primary">
+    <div class="card shadow-lg rounded-3" style="max-width: 400px; width: 100%;">
+        <div class="card-body p-5">
+            <h2 class="text-center mb-4">Signup</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block mt-3">Signup</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

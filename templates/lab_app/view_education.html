@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center text text-white fw-bold">My Education</h2>
+    {% if education_list %}
+      <div class="row">
+        {% for education in education_list %}
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">{{ education.degree }}</h5>
+                <p class="card-text">
+                  <strong>Duration:</strong> {{ education.duration }}
+                </p>
+                <p class="card-text">
+                  <strong>University/School:</strong> {{ education.university_or_school }}
+                </p>
+              </div>
+              <div class="card-footer bg-transparent border-top-0">
+                <p class="text-muted small mb-0">
+                    <a href="{% url 'lab_app:update_education' education.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'lab_app:delete_education' education.id %}" class="btn btn-primary">Delete</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        No education records found.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

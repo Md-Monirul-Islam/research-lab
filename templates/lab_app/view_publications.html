@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+
+</style>
+<br>
+<div class="container">
+    <h1 class="text-center">My Publications</h1>
+    <div class="row">
+        {% for publication in publications %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ publication.title }}</h5>
+                        <p class="card-text"><strong>DOI Link:</strong> <a href="{{ publication.doi_link }}" target="_blank">{{ publication.doi_link }}</a></p>
+                        <p class="card-text"><strong>Publish Year:</strong> {{ publication.publish_year }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <p class="text-muted small mb-0">
+                            <a href="{% url 'lab_app:update_publication' publication.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'lab_app:delete_publication' publication.id %}" class="btn btn-primary">Delete</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

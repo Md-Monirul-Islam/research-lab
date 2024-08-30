@@ -8,8 +8,22 @@ app_name = 'lab_app'
 urlpatterns = [
     path('',views.home_page_view,name='home_page_view'),
     path('banner-image-upload/', views.upload_banner_image, name='banner_image_upload'),
+    path('signup/', views.signup_view, name='signup'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
+    path('update-profile/', views.update_profile, name='update_profile'),
+    path('profile/', views.view_profile, name='view_profile'),
+
+    path('add-publication/', views.add_publication, name='add_publication'),
+    path('my-publications/', views.view_publications, name='view_publications'),
+    path('update-publication/<int:pk>/', views.update_publication, name='update_publication'),
+    path('delete-publication/<int:pk>/', views.delete_publication, name='delete_publication'),
+
+    path('add-education/', views.add_education, name='add_education'),
+    path('view-education/', views.view_education, name='view_education'),
+    path('update-education/<int:pk>/', views.update_education, name='update_education'),
+    path('delete-education/<int:pk>/', views.delete_education, name='delete_education'),
+
     path('add_category/', views.add_category, name='add_category'),
     path('all-categories-people-list/', views.people_list, name='all_people_list'),
     path('category/<str:category_name>/', views.category_people_list, name='category_people_list'),

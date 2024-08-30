@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class BannerImage(models.Model):
@@ -14,18 +15,21 @@ class PeopleCategory(models.Model):
     
 
 class PeopleProfile(models.Model):
-    category = models.ForeignKey(PeopleCategory,on_delete=models.CASCADE)
-    name = models.CharField(max_length=200,null=True,blank=True)
-    position = models.CharField(max_length=200,null=True,blank=True)
-    department = models.CharField(max_length=200,null=True,blank=True)
-    affiliation = models.CharField(max_length=200,null=True,blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='peopleprofile')
+    category = models.ForeignKey(PeopleCategory, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    position = models.CharField(max_length=200, null=True, blank=True)
+    department = models.CharField(max_length=200, null=True, blank=True)
+    affiliation = models.CharField(max_length=200, null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profileImages')
     biography = models.TextField(null=True, blank=True)
-    google_scholar = models.CharField(max_length=300,blank=True,null=True)
-    research_gate = models.CharField(max_length=300,blank=True,null=True)
+    google_scholar = models.CharField(max_length=300, blank=True, null=True)
+    research_gate = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        # Ensure this returns a string
+        return self.name or "Unnamed Profile"
+    
 
 class Publication(models.Model):
     author = models.ForeignKey(PeopleProfile,on_delete=models.CASCADE)
@@ -34,7 +38,9 @@ class Publication(models.Model):
     publish_year = models.CharField(max_length=200,null=True,blank=True)
 
     def __str__(self):
-        return f"{self.title} by {self.author}"
+        title_str = str(self.title) if self.title else "Untitled Publication"
+        print(f"DEBUG: {title_str}")
+        return title_str
 
 
 class Education(models.Model):

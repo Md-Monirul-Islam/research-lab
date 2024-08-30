@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Delete Education</h2>
+    <p>Are you sure you want to delete the education record for <strong>{{ education.degree }}</strong> at <strong>{{ education.university_or_school }}</strong>?</p>
+    
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Yes, delete</button>
+      <a href="{% url 'lab_app:view_education' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

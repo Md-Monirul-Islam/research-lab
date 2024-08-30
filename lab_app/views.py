@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.views.generic import DetailView
 from django.http import Http404
-from lab_app.forms import BannerImageForm,LoginForm, PeopleCategoryForm
+from lab_app.forms import BannerImageForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, PublicationForm, SignUpForm
 from lab_app.models import About, BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 # Create your views here.
@@ -50,11 +50,174 @@ def user_login(request):
 
 
 
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Signup successfully')
+            return redirect('lab_app:home_page_view')
+        else:
+            messages.error(request, "Signup not successfully")
+    else:
+        form = SignUpForm()
+    return render(request, 'lab_app/signup.html', {'form': form})
+
+
+
 @login_required
 def user_logout(request):
     logout(request)
     messages.success(request, 'You have been logged out successfully!')
     return redirect('lab_app:login')
+
+
+
+@login_required
+def update_profile(request):
+    profile = request.user.peopleprofile
+    if request.method == 'POST':
+        form = PeopleProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile update successfully')
+            return redirect('lab_app:home_page_view')
+        else:
+            messages.error(request, "Profile not update successfully")
+    else:
+        form = PeopleProfileForm(instance=profile)
+    
+    return render(request, 'lab_app/update_profile.html', {'form': form})
+
+
+
+@login_required
+def view_profile(request):
+    # Get the profile for the currently logged-in user
+    profile = get_object_or_404(PeopleProfile, user=request.user)
+    
+    return render(request, 'lab_app/view_profile.html', {'profile': profile})
+
+
+
+@login_required
+def add_publication(request):
+    if request.method == 'POST':
+        form = PublicationForm(request.POST)
+        if form.is_valid():
+            publication = form.save(commit=False)
+            publication.author = request.user.peopleprofile  # Assign the logged-in user's profile
+            publication.save()
+            messages.success(request, 'Publication added successfully')
+            return redirect('lab_app:view_publications')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = PublicationForm()
+
+    return render(request, 'lab_app/add_publication.html', {'form': form})
+
+
+
+@login_required
+def view_publications(request):
+    publications = Publication.objects.filter(author=request.user.peopleprofile)
+    return render(request, 'lab_app/view_publications.html', {'publications': publications})
+
+
+
+
+@login_required
+def update_publication(request, pk):
+    publication = get_object_or_404(Publication, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        form = PublicationForm(request.POST, instance=publication)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Publication update successfully')
+            return redirect('lab_app:view_publications')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = PublicationForm(instance=publication)
+
+    return render(request, 'lab_app/add_publication.html', {'form': form})
+
+
+
+
+@login_required
+def delete_publication(request, pk):
+    publication = get_object_or_404(Publication, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        publication.delete()
+        messages.success(request, 'Publication delete successfully')
+        return redirect('lab_app:view_publications')
+
+    return render(request, 'lab_app/confirm_delete_publication.html', {'publication': publication})
+
+
+
+
+@login_required
+def add_education(request):
+    if request.method == 'POST':
+        form = EducationForm(request.POST)
+        if form.is_valid():
+            education = form.save(commit=False)
+            education.author = request.user.peopleprofile  # Assuming you have a related PeopleProfile
+            education.save()
+            messages.success(request, 'Education added successfully')
+            return redirect('lab_app:view_education')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = EducationForm()
+    return render(request, 'lab_app/add_education.html', {'form': form})
+
+
+
+@login_required
+def view_education(request):
+    user_profile = request.user.peopleprofile  # Assuming you have a related PeopleProfile
+    education_list = Education.objects.filter(author=user_profile)
+    return render(request, 'lab_app/view_education.html', {'education_list': education_list})
+
+
+
+@login_required
+def update_education(request, pk):
+    education = get_object_or_404(Education, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        form = EducationForm(request.POST, instance=education)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Education update successfully')
+            return redirect('lab_app:view_education')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = EducationForm(instance=education)
+
+    return render(request, 'lab_app/add_education.html', {'form': form})
+
+
+
+
+@login_required
+def delete_education(request, pk):
+    education = get_object_or_404(Education, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        education.delete()
+        messages.success(request, 'Education delete successfully')
+        return redirect('lab_app:view_education')
+
+    return render(request, 'lab_app/confirm_delete.html', {'education': education})
 
 
 
@@ -77,7 +240,7 @@ def add_category(request):
 
 def people_list(request):
     categories = PeopleCategory.objects.all()
-    profiles = PeopleProfile.objects.all()
+    profiles = PeopleProfile.objects.exclude(category__category="Default Category")
     return render(request, 'lab_app/people_list.html', {'categories': categories, 'profiles': profiles})
 
 
