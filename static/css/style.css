@@ -538,3 +538,24 @@ h1 {
       font-size: 12px;
   }
 }
+
+    /* Add custom styles for biography text and links */
+    .biography-text {
+      margin: 0;
+      padding: 0;
+  }
+  
+  /* Add responsive padding and margins for mobile screens */
+  @media (max-width: 768px) {
+      .biography-text {
+          margin-left: 15px;
+          margin-right: 15px;
+          padding: 0 10px; /* Optional padding */
+      }
+  }
+  
+  /* Optional: Add some padding to links for better spacing */
+  a.text-white {
+      padding: 5px 0;
+      display: block;
+  }
