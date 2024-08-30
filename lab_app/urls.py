@@ -39,4 +39,7 @@ urlpatterns = [
     path('research/<int:research_id>/', views.research_detail, name='research_detail'),
     path('central-contact/', views.central_contact_view, name='central_contact'),
     path('about/', views.about_view, name='about'),
+
+    path('change-password/', views.change_password, name='change_password'),
+    path('password-change-done/', views.password_change_done, name='password_change_done'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.views.generic import DetailView
 from django.http import Http404
@@ -71,6 +73,28 @@ def user_logout(request):
     logout(request)
     messages.success(request, 'You have been logged out successfully!')
     return redirect('lab_app:login')
+
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('lab_app:password_change_done')
+        else:
+            messages.error(request, 'Please correct submit correctly.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'lab_app/change_password.html', {'form': form})
+
+
+
+def password_change_done(request):
+    return render(request, 'lab_app/password_change_done.html')
 
 
 
