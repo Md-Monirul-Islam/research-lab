@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center text-white bg-primary mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Add Account</h5>
+                    <p class="card-text">Join our platform today.</p>
+                    <a href="{% url 'lab_app:signup' %}" class="btn btn-light">Go to Signup</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card text-center text-white bg-success mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Central Contact</h5>
+                    <p class="card-text">Add your central contact.</p>
+                    <a href="{% url 'lab_app:add_central_contact' %}" class="btn btn-light">Go to Contact</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card text-center text-white bg-warning mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-white">Lab Image</h5>
+                    <p class="card-text">Upload your lab image.</p>
+                    <a href="{% url 'lab_app:banner_image_upload' %}" class="btn btn-light">Go to Lab Image</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

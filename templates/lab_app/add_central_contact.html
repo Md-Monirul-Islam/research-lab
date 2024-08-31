@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">
+        {% if form_type == 'edit' %}Update Central Contact{% else %}Add Central Contact{% endif %}
+    </h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="form-control p-3">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    {% if form_type == 'edit' %}Update{% else %}Submit{% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -6,7 +6,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.views.generic import DetailView
 from django.http import Http404
-from lab_app.forms import BannerImageForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, PublicationForm, SignUpForm
+from lab_app.forms import BannerImageForm, CentralContactForm, ContactForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
 from lab_app.models import About, BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 # Create your views here.
@@ -243,6 +243,324 @@ def delete_education(request, pk):
 
     return render(request, 'lab_app/confirm_delete.html', {'education': education})
 
+
+
+
+@login_required
+def add_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.author = request.user.peopleprofile
+            project.save()
+            messages.success(request, 'Project add successfully')
+            return redirect('lab_app:project_list')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = ProjectForm()
+    return render(request, 'lab_app/add_project.html', {'form': form})
+
+
+
+@login_required
+def project_list(request):
+    projects = Project.objects.all()
+    return render(request, 'lab_app/project_list.html', {'projects': projects})
+
+
+
+@login_required
+def edit_project(request, pk):
+    project = get_object_or_404(Project, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES, instance=project)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Project edit successfully')
+            return redirect('lab_app:project_list')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = ProjectForm(instance=project)
+
+    return render(request, 'lab_app/edit_project.html', {'form': form, 'project': project})
+
+
+
+
+@login_required
+def delete_project(request, pk):
+    project = get_object_or_404(Project, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        project.delete()
+        messages.success(request, 'Project delete successfully')
+        return redirect('lab_app:project_list')
+
+    return render(request, 'lab_app/confirm_delete_project.html', {'project': project})
+
+
+
+
+
+@login_required
+def add_contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.author = request.user.peopleprofile
+            contact.save()
+            messages.success(request, 'Contact add successfully')
+            return redirect('lab_app:view_contacts')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = ContactForm()
+    return render(request, 'lab_app/add_contact.html', {'form': form})
+
+
+
+@login_required
+def view_contacts(request):
+    contacts = Contact.objects.filter(author=request.user.peopleprofile)
+    return render(request, 'lab_app/view_contacts.html', {'contacts': contacts})
+
+
+
+
+@login_required
+def edit_contact(request, pk):
+    contact = get_object_or_404(Contact, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST, instance=contact)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Contact edit successfully')
+            return redirect('lab_app:view_contacts')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = ContactForm(instance=contact)
+
+    return render(request, 'lab_app/edit_contact.html', {'form': form})
+
+
+
+@login_required
+def delete_contact(request, pk):
+    contact = get_object_or_404(Contact, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        contact.delete()
+        messages.success(request, 'Contact delete successfully')
+        return redirect('lab_app:view_contacts')
+
+    return render(request, 'lab_app/confirm_delete_contact.html', {'contact': contact})
+
+
+
+
+
+@login_required
+def add_research_interest(request):
+    if request.method == 'POST':
+        form = ResearchInterestForm(request.POST)
+        if form.is_valid():
+            research_interest = form.save(commit=False)
+            research_interest.author = request.user.peopleprofile
+            research_interest.save()
+            messages.success(request, 'Research Interest added successfully')
+            return redirect('lab_app:view_research_interests')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = ResearchInterestForm()
+
+    return render(request, 'lab_app/add_research_interest.html', {
+        'form': form,
+        'form_type': 'add'
+    })
+
+
+
+@login_required
+def view_research_interests(request):
+    research_interests = ResearchInterest.objects.filter(author=request.user.peopleprofile)
+    return render(request, 'lab_app/view_research_interests.html', {'research_interests': research_interests})
+
+
+
+@login_required
+def edit_research_interest(request, pk):
+    research_interest = get_object_or_404(ResearchInterest, pk=pk, author=request.user.peopleprofile)
+
+    if request.method == 'POST':
+        form = ResearchInterestForm(request.POST, instance=research_interest)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Research Interest updated successfully')
+            return redirect('lab_app:view_research_interests')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = ResearchInterestForm(instance=research_interest)
+
+    return render(request, 'lab_app/add_research_interest.html', {
+        'form': form,
+        'form_type': 'edit'
+    })
+
+
+
+@login_required
+def delete_research_interest(request, pk):
+    interest = get_object_or_404(ResearchInterest, pk=pk, author=request.user.peopleprofile)
+    
+    if request.method == 'POST':
+        interest.delete()
+        messages.success(request, 'Research Interest deleted successfully')
+        return redirect('lab_app:view_research_interests')
+    
+    return render(request, 'lab_app/confirm_delete_research_interest.html', {'interest': interest})
+
+
+
+
+
+
+
+@login_required
+def add_research(request):
+    if request.method == 'POST':
+        form = ResearchForm(request.POST, request.FILES)
+        if form.is_valid():
+            research = form.save(commit=False)
+            research.author = request.user.peopleprofile
+            research.save()
+            messages.success(request, 'Research added successfully')
+            return redirect('lab_app:view_research')
+        else:
+            messages.error(request, "Somethings went wrong!!")
+    else:
+        form = ResearchForm()
+    
+    return render(request, 'lab_app/add_research.html', {
+        'form': form,
+        'form_type': 'edit'
+    })
+
+
+
+
+@login_required
+def view_research(request):
+    research_projects = Research.objects.filter(author=request.user.peopleprofile)
+    return render(request, 'lab_app/view_research.html', {'research_projects': research_projects})
+
+
+
+@login_required
+def edit_research(request, pk):
+    research = get_object_or_404(Research, pk=pk)
+
+    if request.method == 'POST':
+        form = ResearchForm(request.POST, request.FILES, instance=research)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Research project updated successfully!")
+            return redirect('lab_app:view_research')
+        else:
+            messages.error(request, "Something went wrong. Please check the form and try again.")
+    else:
+        form = ResearchForm(instance=research)
+
+    return render(request, 'lab_app/add_research.html', {
+        'form': form,
+        'form_type': 'edit'
+    })
+
+
+
+@login_required
+def delete_research(request, pk):
+    research = get_object_or_404(Research, pk=pk)
+
+    if request.method == 'POST':
+        research.delete()
+        messages.success(request, "Research project deleted successfully!")
+        return redirect('lab_app:view_research')
+
+    return render(request, 'lab_app/delete_research.html', {'research': research})
+
+
+
+
+@login_required
+def add_central_contact(request):
+    if request.method == 'POST':
+        form = CentralContactForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Central Contact added successfully!")
+            return redirect('lab_app:view_central_contacts')
+        else:
+            messages.error(request, "There was an error adding the Central Contact.")
+    else:
+        form = CentralContactForm()
+    
+    return render(request, 'lab_app/add_central_contact.html', {
+        'form': form,
+        'form_type': 'edit'
+    })
+
+
+
+def view_central_contacts(request):
+    contacts = CentralContact.objects.all()
+    return render(request, 'lab_app/view_central_contacts.html', {'contacts': contacts})
+
+
+
+@login_required
+def edit_central_contact(request, pk):
+    contact = get_object_or_404(CentralContact, pk=pk)
+
+    if request.method == 'POST':
+        form = CentralContactForm(request.POST, request.FILES, instance=contact)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Central Contact updated successfully!")
+            return redirect('lab_app:view_central_contacts')
+    else:
+        form = CentralContactForm(instance=contact)
+    
+    return render(request, 'lab_app/add_central_contact.html', {
+        'form': form,
+        'form_type': 'edit'
+    })
+
+
+
+@login_required
+def delete_central_contact(request, pk):
+    contact = get_object_or_404(CentralContact, pk=pk)
+
+    if request.method == 'POST':
+        contact.delete()
+        messages.success(request, "Central Contact deleted successfully!")
+        return redirect('lab_app:view_central_contacts')
+
+    return render(request, 'lab_app/confirm_delete_central_contact.html', {'contact': contact})
+
+
+
+def dashboard(request):
+    return render(request,'lab_app/dashboard.html')
 
 
 

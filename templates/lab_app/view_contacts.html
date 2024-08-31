@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">My Contact Information</h2>
+    <div class="row">
+        {% for contact in contacts %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Contact Information</h5>
+                        <p class="card-text"><strong>Office Address:</strong> {{ contact.office_address }}</p>
+                        <p class="card-text"><strong>Department:</strong> {{ contact.department }}</p>
+                        <p class="card-text"><strong>Faculty:</strong> {{ contact.faculty }}</p>
+                        <p class="card-text"><strong>University:</strong> {{ contact.university }}</p>
+                        <p class="card-text"><strong>Post:</strong> {{ contact.post }}</p>
+                        <p class="card-text"><strong>Phone:</strong> {{ contact.phone }}</p>
+                        <p class="card-text"><strong>Email:</strong> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                        <p class="card-text"><strong>Skype:</strong> {{ contact.skype }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a href="{% url 'lab_app:edit_contact' contact.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'lab_app:delete_contact' contact.id %}" class="btn btn-primary">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

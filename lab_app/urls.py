@@ -24,6 +24,33 @@ urlpatterns = [
     path('update-education/<int:pk>/', views.update_education, name='update_education'),
     path('delete-education/<int:pk>/', views.delete_education, name='delete_education'),
 
+    path('add-project/', views.add_project, name='add_project'),
+    path('projects/', views.project_list, name='project_list'),
+    path('edit-project/<int:pk>/', views.edit_project, name='edit_project'),
+    path('delete-project/<int:pk>/', views.delete_project, name='delete_project'),
+
+    path('add-contact/', views.add_contact, name='add_contact'),
+    path('view-contacts/', views.view_contacts, name='view_contacts'),
+    path('edit-contact/<int:pk>/', views.edit_contact, name='edit_contact'),
+    path('delete-contact/<int:pk>/', views.delete_contact, name='delete_contact'),
+
+    path('add-research-interest/', views.add_research_interest, name='add_research_interest'),
+    path('research-interests/', views.view_research_interests, name='view_research_interests'),
+    path('edit-research-interest/<int:pk>/', views.edit_research_interest, name='edit_research_interest'),
+    path('delete-research-interest/<int:pk>/', views.delete_research_interest, name='delete_research_interest'),
+
+    path('add-research/', views.add_research, name='add_research'),
+    path('view-research/', views.view_research, name='view_research'),
+    path('edit-research/<int:pk>/', views.edit_research, name='edit_research'),
+    path('delete-research/<int:pk>/', views.delete_research, name='delete_research'),
+
+    path('add-central-contact/', views.add_central_contact, name='add_central_contact'),
+    path('central-contacts/', views.view_central_contacts, name='view_central_contacts'),
+     path('edit-central-contact/<int:pk>/', views.edit_central_contact, name='edit_central_contact'),
+     path('delete-central-contact/<int:pk>/', views.delete_central_contact, name='delete_central_contact'),
+
+    path('superuser-dashboard/',views.dashboard,name='bashboard'),
+
     path('add_category/', views.add_category, name='add_category'),
     path('all-categories-people-list/', views.people_list, name='all_people_list'),
     path('category/<str:category_name>/', views.category_people_list, name='category_people_list'),

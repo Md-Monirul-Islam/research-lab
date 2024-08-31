@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from . models import BannerImage, Education, PeopleCategory, PeopleProfile, Publication
+from . models import BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 
 class BannerImageForm(forms.ModelForm):
@@ -66,4 +66,110 @@ class EducationForm(forms.ModelForm):
             'degree': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter degree'}),
             'duration': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter duration'}),
             'university_or_school': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter university or school'}),
+        }
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['project_title', 'project_description', 'stat_date', 'end_date', 'department', 'funding_authority', 'project_image']
+        widgets = {
+            'project_description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter project description'}), #'rows': 4
+            'stat_date': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'end_date': forms.TextInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'project_title': forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Enter project title'}),
+            'department': forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Enter department'}),
+            'funding_authority': forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Enter funding authority'}),
+        }
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = [
+            'office_address', 'department', 'faculty', 'university', 
+            'post', 'phone', 'email', 'skype'
+        ]
+        widgets = {
+            'office_address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'department': forms.TextInput(attrs={'class': 'form-control'}),
+            'faculty': forms.TextInput(attrs={'class': 'form-control'}),
+            'university': forms.TextInput(attrs={'class': 'form-control'}),
+            'post': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'skype': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+
+class ResearchInterestForm(forms.ModelForm):
+    class Meta:
+        model = ResearchInterest
+        fields = ['interest_name']
+        widgets = {
+            'interest_name': forms.Textarea(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter your research interest'
+            }),
+        }
+
+
+
+class ResearchForm(forms.ModelForm):
+    class Meta:
+        model = Research
+        fields = ['title', 'project_image']
+        widgets = {
+            'title': forms.Textarea(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter your research title'
+            }),
+        }
+
+
+
+class CentralContactForm(forms.ModelForm):
+    class Meta:
+        model = CentralContact
+        fields = [
+            'office_address', 'department', 'faculty', 'university', 
+            'post', 'phone', 'email', 'skype', 'address_image'
+        ]
+        widgets = {
+            'office_address': forms.Textarea(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter office address'
+            }),
+            'department': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter department'
+            }),
+            'faculty': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter faculty'
+            }),
+            'university': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter university'
+            }),
+            'post': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter post'
+            }),
+            'phone': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter phone number'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter email'
+            }),
+            'skype': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Enter Skype ID'
+            }),
+            'address_image': forms.ClearableFileInput(attrs={
+                'class': 'form-control-file'
+            }),
         }

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">Delete Research Interest</h2>
+    <p class="text-center text-white">Are you sure you want to delete the research interest: "{{ interest.interest_name }}"?</p>
+    
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'lab_app:view_research_interests' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

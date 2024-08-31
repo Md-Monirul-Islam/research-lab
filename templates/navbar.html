@@ -32,9 +32,6 @@
                         <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:publication_list' %}">Publications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="#">News & Events</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link fw-bold text-warning" href="{% url "lab_app:about" %}">About</a>
                     </li>
                     <li class="nav-item">
@@ -42,14 +39,8 @@
                     </li>
                     {% if user.is_authenticated and user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:banner_image_upload' %}">Lab Image</a>
+                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:bashboard' %}">Dashboard</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:signup' %}">Signup</a>
-                    </li>
-                    {% comment %} <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:add_category' %}">Add Category</a>
-                    </li> {% url 'lab_app:user_profile' %} {% endcomment %}
                     {% endif %}
                     {% if user.is_authenticated %}
                     <li class="nav-item">

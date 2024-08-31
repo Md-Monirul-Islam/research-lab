@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">Projects</h2>
+    <div class="row">
+        {% for project in projects %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.project_title }}</h5>
+                        <p class="card-text">{{ project.project_description|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Department: {{ project.department }}</small><br>
+                        <small class="text-muted">Start Date: {{ project.stat_date }}</small><br>
+                        <small class="text-muted">End Date: {{ project.end_date }}</small><br>
+                        <small class="text-muted">Funding Authority: {{ project.funding_authority }}</small>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a href="{% url 'lab_app:edit_project' project.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'lab_app:delete_project' project.id %}" class="btn btn-primary">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-white text-center">
+        {% if form_type == 'edit' %}
+            Update Research Interest
+        {% else %}
+            Add Research Interest
+        {% endif %}
+    </h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" class="form-control p-3">
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                    <label for="{{ form.interest_name.id_for_label }}">Research Interest:</label>
+                    {{ form.interest_name }}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% if form_type == 'edit' %}
+                        Update
+                    {% else %}
+                        Submit
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">My Research Interests</h2>
+    <ul class="list-group">
+        {% for interest in research_interests %}
+            <li class="list-group-item">
+                {{ interest.interest_name }}
+                <div class="card-footer bg-transparent border-top-0 mt-2">
+                    <a href="{% url 'lab_app:edit_research_interest' interest.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'lab_app:delete_research_interest' interest.id %}" class="btn btn-primary">Delete</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
