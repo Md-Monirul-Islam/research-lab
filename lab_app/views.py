@@ -6,8 +6,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.views.generic import DetailView
 from django.http import Http404
-from lab_app.forms import AboutForm, BannerImageForm, CentralContactForm, ContactForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
-from lab_app.models import About, BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
+from lab_app.forms import AboutForm, BannerImageForm, CentralContactForm, ContactForm, ContactUsForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
+from lab_app.models import About, BannerImage, CentralContact, Contact, ContactUs, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 # Create your views here.
 def home_page_view(request):
@@ -752,9 +752,23 @@ def research_detail(request, research_id):
 
 
 
-def central_contact_view(request):
+# def public_central_contact(request):
+#     contacts = CentralContact.objects.all()
+#     return render(request, 'lab_app/publict_central_contact.html', {'contacts': contacts})
+def public_central_contact(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lab_app:home_page_view')
+    else:
+        form = ContactUsForm()
+
     contacts = CentralContact.objects.all()
-    return render(request, 'lab_app/central_contact.html', {'contacts': contacts})
+    return render(request, 'lab_app/public_central_contact.html', {
+        'contacts': contacts,
+        'form': form
+    })
 
 
 
@@ -765,3 +779,25 @@ def about_view(request):
     }
     return render(request, 'lab_app/about.html', context)
 
+
+
+
+def add_contact_us(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Submit your contact successfully!")
+            return redirect('lab_app:home_page_view')
+        else:
+            messages.error(request, "There was an error adding Contact.")
+    else:
+        form = ContactUsForm()
+    return render(request, 'lab_app/add_contact_us.html', {'form': form})
+
+
+
+@login_required
+def contact_us_details_view(request):
+    contact_us_entries = ContactUs.objects.all()
+    return render(request, 'lab_app/contact_us_details.html', {'contact_us_entries': contact_us_entries})

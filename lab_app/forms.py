@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from . models import About, BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
+from . models import About, BannerImage, CentralContact, Contact, ContactUs, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 
 class BannerImageForm(forms.ModelForm):
@@ -189,4 +189,32 @@ class AboutForm(forms.ModelForm):
             'about5': forms.Textarea(attrs={'class': 'form-control', }),
             'about6': forms.Textarea(attrs={'class': 'form-control', }),
             'about7': forms.Textarea(attrs={'class': 'form-control', }), #'rows': 3
+        }
+
+
+
+class ContactUsForm(forms.ModelForm):
+    class Meta:
+        model = ContactUs
+        fields = ['full_name', 'email', 'phone', 'message']
+        widgets = {
+            'full_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your full name'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your email address',
+                'type':'email'
+            }),
+            'phone': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your phone number',
+                'type':'number'
+            }),
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your message',
+                # 'rows': 5,
+            }),
         }

@@ -2,6 +2,37 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .container {
+        margin-top: auto;
+    }
+    .form-container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-title {
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-control {
+        border-radius: 4px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 4px;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+</style>
 <div class="container mt-5 pt-3">
     <div class="row">
         {% for contact in contacts %}
@@ -33,30 +64,25 @@
         </div>
         {% endfor %}
     </div>
+
+    <!-- Contact Us Form Section -->
+     <br>
+     <div class="container pt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="form-container">
+                    <div class="form-title text-center">
+                        <h2 class="text-black fw-bold">Get in touch</h2>
+                        <p class="fw-normal">We'd love to hear from you</p>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div><br>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} <h1>Central Contacts</h1>
-    {% for contact in contacts %}
-    <div class="contact-card">
-        <h2>{{ contact.department }} - {{ contact.faculty }}</h2>
-        <p><strong>University:</strong> {{ contact.university }}</p>
-        <p><strong>Post:</strong> {{ contact.post }}</p>
-        <p><strong>Office Address:</strong> {{ contact.office_address }}</p>
-        <p><strong>Phone:</strong> {{ contact.phone }}</p>
-        <p><strong>Email:</strong> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
-        <p><strong>Skype:</strong> {{ contact.skype }}</p>
-    </div>
-    {% endfor %} {% endcomment %}
-

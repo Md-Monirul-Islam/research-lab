@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-3">
+    <h1 class="text-white text-center fw-bold">Contact Us Submissions</h1>
+    <hr class="my-4">
+    <div class="list-group">
+        {% for entry in contact_us_entries %}
+        <div class="list-group-item list-group-item-action mb-3" style="border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h5 class="mb-1">{{ entry.full_name }}</h5>
+            <p class="mb-1"><strong>Email:</strong> {{ entry.email }}</p>
+            <p class="mb-1"><strong>Phone:</strong> {{ entry.phone }}</p>
+            <p class="mb-1 text-justify-custom"><strong>Message:</strong> {{ entry.message }}</p>
+            <small class="text-muted">Submitted on: {{ entry.created_at }}</small>
+        </div>
+        {% empty %}
+        <p>No submissions yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

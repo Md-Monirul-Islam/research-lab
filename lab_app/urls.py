@@ -45,14 +45,14 @@ urlpatterns = [
     path('delete-research/<int:pk>/', views.delete_research, name='delete_research'),
 
     path('add-central-contact/', views.add_central_contact, name='add_central_contact'),
-    path('central-contacts/', views.view_central_contacts, name='view_central_contacts'),
-     path('edit-central-contact/<int:pk>/', views.edit_central_contact, name='edit_central_contact'),
-     path('delete-central-contact/<int:pk>/', views.delete_central_contact, name='delete_central_contact'),
+    path('central-contact-show/', views.view_central_contacts, name='view_central_contacts'),
+    path('edit-central-contact/<int:pk>/', views.edit_central_contact, name='edit_central_contact'),
+    path('delete-central-contact/<int:pk>/', views.delete_central_contact, name='delete_central_contact'),
 
-     path('add-about/', views.add_about, name='add_about'),
-     path('view-about/', views.view_about, name='view_about'),
-     path('edit-about/<int:pk>/', views.edit_about, name='edit_about'),
-     path('delete-about/<int:pk>/', views.delete_about, name='delete_about'),
+    path('add-about/', views.add_about, name='add_about'),
+    path('view-about/', views.view_about, name='view_about'),
+    path('edit-about/<int:pk>/', views.edit_about, name='edit_about'),
+    path('delete-about/<int:pk>/', views.delete_about, name='delete_about'),
 
     path('superuser-dashboard/',views.dashboard,name='bashboard'),
 
@@ -69,9 +69,12 @@ urlpatterns = [
     path('education/<int:author_id>/', views.author_education, name='author_education'),
     path('author/<int:author_id>/research/', views.author_research, name='author_researches'),
     path('research/<int:research_id>/', views.research_detail, name='research_detail'),
-    path('central-contact/', views.central_contact_view, name='central_contact'),
+    path('central-contact/', views.public_central_contact, name='central_contact'),
     path('about/', views.about_view, name='about'),
 
     path('change-password/', views.change_password, name='change_password'),
     path('password-change-done/', views.password_change_done, name='password_change_done'),
+
+    path('contact-us/', views.add_contact_us, name='add_contact_us'),
+    path('contact-us-details/', views.contact_us_details_view, name='contact_us_details'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

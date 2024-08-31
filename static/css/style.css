@@ -597,6 +597,8 @@ h1 {
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 5px;
+      padding-bottom: 0;
   }
   
   .overlay {
@@ -667,10 +669,11 @@ h1 {
   @media (max-width: 768px) {
       .hero-section {
           height: 50vh;
+          margin-bottom: 0;
       }
   
       h1 {
-          font-size: 36px;
+          font-size: 20px;
       }
   
       h2 {
@@ -685,5 +688,9 @@ h1 {
           padding: 8px 15px;
           font-size: 14px;
       }
+
+      .carousel-item img {
+        height: auto;
+    }
   }
   /* home page design end */
