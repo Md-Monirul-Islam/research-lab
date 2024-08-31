@@ -374,7 +374,7 @@ h2.text-primary {
 /* Carousel image design */
 .carousel-item img {
   width: 100%;
-  height: 790px;
+  height: 100%px;
   object-fit: cover;
 }
 
@@ -582,3 +582,104 @@ h1 {
   max-width: 100%;
   height: 700px;
 }
+
+
+/* home page design start */
+    /* Hero Section Styles */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      background: url('/static/images/just.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  
+  .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .container {
+      color: #fff;
+  }
+  
+  h2 {
+      font-size: 24px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: #E5E5E5;
+  }
+  
+  h1 {
+      font-size: 40px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+  }
+  
+  h3 {
+      font-size: 20px;
+      letter-spacing: 1px;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      margin-bottom: 30px;
+      color: #E5E5E5;
+  }
+  
+  .cta-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #E04F5F;
+      color: #fff;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+      background-color: #B0394C;
+  }
+  
+  .btn-primary {
+      background-color: #007bff;
+      border: none;
+      transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+      background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+      .hero-section {
+          height: 50vh;
+      }
+  
+      h1 {
+          font-size: 36px;
+      }
+  
+      h2 {
+          font-size: 18px;
+      }
+  
+      h3 {
+          font-size: 16px;
+      }
+  
+      .cta-button {
+          padding: 8px 15px;
+          font-size: 14px;
+      }
+  }
+  /* home page design end */
