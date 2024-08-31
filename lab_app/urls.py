@@ -49,6 +49,11 @@ urlpatterns = [
      path('edit-central-contact/<int:pk>/', views.edit_central_contact, name='edit_central_contact'),
      path('delete-central-contact/<int:pk>/', views.delete_central_contact, name='delete_central_contact'),
 
+     path('add-about/', views.add_about, name='add_about'),
+     path('view-about/', views.view_about, name='view_about'),
+     path('edit-about/<int:pk>/', views.edit_about, name='edit_about'),
+     path('delete-about/<int:pk>/', views.delete_about, name='delete_about'),
+
     path('superuser-dashboard/',views.dashboard,name='bashboard'),
 
     path('add_category/', views.add_category, name='add_category'),

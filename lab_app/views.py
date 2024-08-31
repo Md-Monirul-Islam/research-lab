@@ -6,7 +6,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.views.generic import DetailView
 from django.http import Http404
-from lab_app.forms import BannerImageForm, CentralContactForm, ContactForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
+from lab_app.forms import AboutForm, BannerImageForm, CentralContactForm, ContactForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
 from lab_app.models import About, BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 # Create your views here.
@@ -536,6 +536,8 @@ def edit_central_contact(request, pk):
             form.save()
             messages.success(request, "Central Contact updated successfully!")
             return redirect('lab_app:view_central_contacts')
+        else:
+            messages.error(request, "There was an error adding the Central Contact.")
     else:
         form = CentralContactForm(instance=contact)
     
@@ -556,6 +558,63 @@ def delete_central_contact(request, pk):
         return redirect('lab_app:view_central_contacts')
 
     return render(request, 'lab_app/confirm_delete_central_contact.html', {'contact': contact})
+
+
+
+
+@login_required
+def add_about(request):
+    if request.method == 'POST':
+        form = AboutForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "About added successfully!")
+            return redirect('lab_app:view_about')
+        else:
+            messages.error(request, "There was an error adding the Central Contact.")
+    else:
+        form = AboutForm()
+    
+    return render(request, 'lab_app/add_about.html', {'form': form})
+
+
+
+def view_about(request):
+    about_entries = About.objects.all()
+    return render(request, 'lab_app/view_about.html', {'about_entries': about_entries})
+
+
+
+@login_required
+def edit_about(request, pk):
+    about = get_object_or_404(About, pk=pk)
+    
+    if request.method == 'POST':
+        form = AboutForm(request.POST, request.FILES, instance=about)
+        if form.is_valid():
+            form.save()
+            return redirect('lab_app:view_about')
+    else:
+        form = AboutForm(instance=about)
+    
+    context = {
+        'form': form,
+        'form_type': 'edit'
+    }
+    return render(request, 'lab_app/add_about.html', context)
+
+
+
+@login_required
+def delete_about(request, pk):
+    about = get_object_or_404(About, pk=pk)
+
+    if request.method == 'POST':
+        about.delete()
+        return redirect('lab_app:view_about')
+
+    return render(request, 'lab_app/confirm_delete_about.html', {'about': about})
+
 
 
 

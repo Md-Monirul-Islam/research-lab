@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-white">Confirm Delete</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p class="text-white">Are you sure you want to delete this about section?</p>
+            {% if about.about_image %}
+                <img src="{{ about.about_image.url }}" class="img-fluid mb-3" alt="About Image" style="max-height: 200px; object-fit: cover;">
+            {% endif %}
+            <p class="text-black">{{ about.about1 }}</p>
+            <p class="text-black"></strong> {{ about.about2 }}</p>
+            <p class="text-black">{{ about.about3 }}</p>
+            <p class="text-black">{{ about.about4 }}</p>
+            <p class="text-black">{{ about.about5 }}</p>
+            <p class="text-black">{{ about.about6 }}</p>
+            <p class="text-black">{{ about.about7 }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'lab_app:view_about' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

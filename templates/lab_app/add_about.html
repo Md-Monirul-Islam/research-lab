@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">
+        {% if form_type == 'edit' %}
+            Update About
+        {% else %}
+            Add About
+        {% endif %}
+    </h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="form-control p-3">
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                    <label for="{{ form.about_image.id_for_label }}">About Image:</label>
+                    {{ form.about_image }}
+                </div>
+                <div class="form-group mb-4">
+                    <label for="{{ form.about1.id_for_label }}">About Section 1:</label>
+                    {{ form.about1 }}
+                </div>
+                <div class="form-group mb-4">
+                    <label for="{{ form.about2.id_for_label }}">About Section 2:</label>
+                    {{ form.about2 }}
+                </div>
+                <div class="form-group mb-4">
+                    <label for="{{ form.about3.id_for_label }}">About Section 3:</label>
+                    {{ form.about3 }}
+                </div>
+                <div class="form-group mb-4">
+                    <label for="{{ form.about4.id_for_label }}">About Section 4:</label>
+                    {{ form.about4 }}
+                </div>
+                <div class="form-group mb-4">
+                    <label for="{{ form.about5.id_for_label }}">About Section 5:</label>
+                    {{ form.about5 }}
+                </div>
+                <div class="form-group mb-4">
+                    <label for="{{ form.about6.id_for_label }}">About Section 6:</label>
+                    {{ form.about6 }}
+                </div>
+                <div class="form-group mb-4">
+                    <label for="{{ form.about7.id_for_label }}">About Section 7:</label>
+                    {{ form.about7 }}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% if form_type == 'edit' %}
+                        Save Changes
+                    {% else %}
+                        Submit
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -4,6 +4,9 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4 text-center text-white">Central Contacts</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-primary text-light text-decoration-none" href="{% url 'lab_app:add_central_contact' %}">Add New Central Contact</a>
+    </div>
     <div class="card shadow-sm">
         <div class="card-body">
             {% if contacts %}

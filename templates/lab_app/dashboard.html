@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-
+<br>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-white">Central Contact</h5>
                     <p class="card-text">Add your central contact.</p>
-                    <a href="{% url 'lab_app:add_central_contact' %}" class="btn btn-light">Go to Contact</a>
+                    <a href="{% url 'lab_app:view_central_contacts' %}" class="btn btn-light">Go to Contact</a>
                 </div>
             </div>
         </div>
@@ -33,7 +33,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4">
+            <div class="card text-center text-white bg-info mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-white">About</h5>
+                    <p class="card-text">Add your about info.</p>
+                    <a href="{% url 'lab_app:view_about' %}" class="btn btn-light">Go to About</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 {% endblock content %}

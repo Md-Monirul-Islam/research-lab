@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from . models import BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
+from . models import About, BannerImage, CentralContact, Contact, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 
 class BannerImageForm(forms.ModelForm):
@@ -172,4 +172,21 @@ class CentralContactForm(forms.ModelForm):
             'address_image': forms.ClearableFileInput(attrs={
                 'class': 'form-control-file'
             }),
+        }
+
+
+
+class AboutForm(forms.ModelForm):
+    class Meta:
+        model = About
+        fields = ['about_image', 'about1', 'about2', 'about3', 'about4', 'about5', 'about6', 'about7']
+        widgets = {
+            'about_image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'about1': forms.Textarea(attrs={'class': 'form-control', }),
+            'about2': forms.Textarea(attrs={'class': 'form-control', }),
+            'about3': forms.Textarea(attrs={'class': 'form-control', }),
+            'about4': forms.Textarea(attrs={'class': 'form-control', }),
+            'about5': forms.Textarea(attrs={'class': 'form-control', }),
+            'about6': forms.Textarea(attrs={'class': 'form-control', }),
+            'about7': forms.Textarea(attrs={'class': 'form-control', }), #'rows': 3
         }

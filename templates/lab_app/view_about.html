@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center text-white">About Information</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-primary text-light text-decoration-none" href="{% url 'lab_app:add_about' %}">Add New About</a>
+    </div>
+    {% for about in about_entries %}
+        <div class="card mb-4 shadow-sm">
+            {% if about.about_image %}
+                <img src="{{ about.about_image.url }}" class="card-img-top about-sec-img" alt="About Image">
+            {% endif %}
+            <div class="card-body">
+                {% if about.about1 %}
+                    <p class="card-text">{{ about.about1 }}</p>
+                {% endif %}
+                {% if about.about2 %}
+                    <p class="card-text">{{ about.about2 }}</p>
+                {% endif %}
+                {% if about.about3 %}
+                    <p class="card-text">{{ about.about3 }}</p>
+                {% endif %}
+                {% if about.about4 %}
+                    <p class="card-text">{{ about.about4 }}</p>
+                {% endif %}
+                {% if about.about5 %}
+                    <p class="card-text">{{ about.about5 }}</p>
+                {% endif %}
+                {% if about.about6 %}
+                    <p class="card-text">{{ about.about6 }}</p>
+                {% endif %}
+                {% if about.about7 %}
+                    <p class="card-text">{{ about.about7 }}</p>
+                {% endif %}
+            </div>
+            <div class="card-footer bg-transparent border-top-0">
+                <a href="{% url 'lab_app:edit_about' about.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'lab_app:delete_about' about.id %}" class="btn btn-primary">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-white">No About information available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
