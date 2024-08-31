@@ -25,6 +25,23 @@ body {
   background-color: #cbbcb1;
 }
 
+
+/* navbar active design */
+.nav-link.active {
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background-color: #18EF74; /* Color of the underline */
+}
+
+
 .mask-custom {
   backdrop-filter: blur(5px);
   background-color: rgba(255, 255, 255, .15);
@@ -369,54 +386,55 @@ h2.text-primary {
 
 
 /* About section */
-.about-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-.about-image {
-  max-width: 40%;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.about-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
-}
-.about-text {
-  max-width: 50%;
-}
-.about-heading {
-  font-size: 60px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-}
-.about-paragraph {
-  font-size: 18px;
-  line-height: 1.8;
-  color: #666;
-}
-.social-icons {
-  margin-top: 20px;
-}
-.social-icons a {
-  margin-right: 10px;
-  color: #333;
-  font-size: 20px;
-  text-decoration: none;
-}
-.social-icons a:hover {
-  color: #007bff;
-}
+    /* Ensure that images are responsive */
+    .img-fluid {
+      max-width: 100%;
+      height: auto;
+  }
+  
+  /* Add padding to the about container */
+  .about-container {
+      padding: 2rem 0;
+  }
+  
+  /* Customize the heading */
+  .display-4 {
+      font-weight: bold;
+      color: #5e9693;
+  }
+  
+  /* Customize paragraphs */
+  .lead {
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: #333;
+  }
+  
+  p {
+      color: #555;
+      line-height: 1.7;
+  }
+  
+  /* Social icons styling */
+  .social-icons a {
+      color: #5e9693;
+      transition: color 0.3s;
+  }
+  
+  .social-icons a:hover {
+      color: #18EF74;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 767.98px) {
+      .display-4 {
+          font-size: 2.5rem;
+      }
+  
+      .lead {
+          font-size: 1.15rem;
+      }
+  }
 
 
 /* Footer design */

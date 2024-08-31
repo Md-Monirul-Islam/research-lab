@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:home_page_view' %}">Home</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'home_page_view' %}active{% endif %}" href="{% url 'lab_app:home_page_view' %}">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold text-warning" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -29,31 +29,31 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:publication_list' %}">Publications</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'publication_list' %}active{% endif %}" href="{% url 'lab_app:publication_list' %}">Publications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url "lab_app:about" %}">About</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'lab_app:about' %}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:central_contact' %}">Contact</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'central_contact' %}active{% endif %}" href="{% url 'lab_app:central_contact' %}">Contact</a>
                     </li>
                     {% if user.is_authenticated and user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:bashboard' %}">Dashboard</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'bashboard' %}active{% endif %}" href="{% url 'lab_app:bashboard' %}">Dashboard</a>
                     </li>
                     {% endif %}
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:logout' %}">Logout</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'logout' %}active{% endif %}" href="{% url 'lab_app:logout' %}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:login' %}">Login</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'lab_app:login' %}">Login</a>
                     </li>
                     {% endif %}
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and not user.is_superuser %}
                     <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning" href="{% url 'lab_app:view_profile' %}">Profile</a>
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'view_profile' %}active{% endif %}" href="{% url 'lab_app:view_profile' %}">Profile</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -77,19 +77,4 @@
             </div>
         </div>
     </nav>
-      <!-- Navbar -->
-
-    <!--Section: Design Block--> 
-    {% comment %} <section>
-        <!-- Intro -->
-        <div id="intro" class="bg-image vh-100" style="
-            background-image: url('https://media.istockphoto.com/id/1209968955/photo/sars-cov-2-pcr-diagnostics-kit-epidemiologist-in-protective-suit-mask-and-glasses-works-with.webp?b=1&s=170667a&w=0&k=20&c=MtMaFXqQ_IeVdGHsxAUlGnvUQD--qVBMdMGKFHpLsfk=');
-            background-repeat: no-repeat;
-            background-size: cover;">
-        <div class="mask" style="background-color: rgba(250, 182, 162, 0.15);"></div>
-    </div>
-
-        <!-- Intro -->
-    </section>
-    <!--Section: Design Block--> {% endcomment %}
 </header>
