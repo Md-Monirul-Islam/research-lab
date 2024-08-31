@@ -6,8 +6,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.views.generic import DetailView
 from django.http import Http404
-from lab_app.forms import AboutForm, BannerImageForm, CentralContactForm, ContactForm, ContactUsForm, EducationForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
-from lab_app.models import About, BannerImage, CentralContact, Contact, ContactUs, Education, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
+from lab_app.forms import AboutForm, BannerImageForm, CentralContactForm, ContactForm, ContactUsForm, EducationForm, ImageGalleryForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
+from lab_app.models import About, BannerImage, CentralContact, Contact, ContactUs, Education, ImageGallery, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
 
 # Create your views here.
 def home_page_view(request):
@@ -801,3 +801,18 @@ def add_contact_us(request):
 def contact_us_details_view(request):
     contact_us_entries = ContactUs.objects.all()
     return render(request, 'lab_app/contact_us_details.html', {'contact_us_entries': contact_us_entries})
+
+
+
+
+def upload_images(request):
+    if request.method == 'POST':
+        form = ImageGalleryForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('lab_app:home_page_view')
+
+    else:
+        form = ImageGalleryForm()
+
+    return render(request, 'lab_app/upload_images.html', {'form': form})

@@ -142,4 +142,12 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return self.full_name
+    
+
+
+class ImageGallery(models.Model):
+    image = models.ImageField(upload_to='imageGallery/')
+
+    def __str__(self):
+        return str(self.image.name)
 

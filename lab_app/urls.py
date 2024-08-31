@@ -77,4 +77,7 @@ urlpatterns = [
 
     path('contact-us/', views.add_contact_us, name='add_contact_us'),
     path('contact-us-details/', views.contact_us_details_view, name='contact_us_details'),
+
+    path('upload-images/', views.upload_images, name='upload_images'),
+    # path('gallery/', views.image_gallery_view, name='image_gallery'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
