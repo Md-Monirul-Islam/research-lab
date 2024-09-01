@@ -36,6 +36,7 @@ class Publication(models.Model):
     title = models.CharField(max_length=255,null=True,blank=True)
     doi_link = models.CharField(max_length=300,null=True,blank=True)
     publish_year = models.CharField(max_length=200,null=True,blank=True)
+    publication_image = models.ImageField(upload_to='publication/images/',null=True,blank=True)
 
     def __str__(self):
         title_str = str(self.title) if self.title else "Untitled Publication"

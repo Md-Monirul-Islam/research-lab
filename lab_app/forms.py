@@ -50,7 +50,7 @@ class PeopleProfileForm(forms.ModelForm):
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
-        fields = ['title', 'doi_link', 'publish_year']
+        fields = ['title', 'doi_link', 'publish_year','publication_image']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Title'}),
             'doi_link': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter DOI Link'}),

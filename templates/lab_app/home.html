@@ -22,17 +22,76 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, sequi sed. Laborum dignissimos harum laboriosam amet nobis corporis sint velit exercitationem, fugiat, nisi quis? Natus provident labore minima harum iusto asperiores beatae voluptatum totam explicabo quaerat dicta consectetur ducimus autem, cupiditate ea eius sit quam nisi ipsam. Sed eaque est eveniet et, possimus nihil! Nemo eius magni possimus laborum soluta nihil laudantium praesentium, non repellendus blanditiis, accusamus aut vero reprehenderit ut corrupti eaque quia odit exercitationem beatae neque recusandae ducimus rerum repudiandae! Eveniet libero ipsam expedita ipsum quos, quaerat, corporis quam deleniti corrupti molestias ex eaque reprehenderit earum. Quo, quae!
             </p>
         </div>
-        <div class="col-12 col-md-6">
-            <p class="text-white text-center">Somethings</p>
+        <div class="col-12 col-md-6 justify-content-end">
+            <p class="text-white text-center mb-4">Latest Researches</p>
+            <!-- Carousel Container -->
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Project Carousel Item -->
+                    {% if project %}
+                        <div class="carousel-item active" data-bs-interval="5000">
+                            <div class="card">
+                                {% if project.project_image %}
+                                    <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}">
+                                {% else %}
+                                    <img src="{% static 'default-project.png' %}" class="card-img-top" alt="Default project image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ project.project_title }}</h5>
+                                    <p class="card-text">{{ project.project_description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Research Carousel Item -->
+                    {% if research %}
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <div class="card">
+                                {% if research.project_image %}
+                                    <img src="{{ research.project_image.url }}" class="card-img-top" alt="{{ research.title }}">
+                                {% else %}
+                                    <img src="{% static 'default-research.png' %}" class="card-img-top" alt="Default research image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ research.title }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Publication Carousel Item -->
+                    {% if publication %}
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <div class="card">
+                                {% if publication.publication_image %}
+                                    <img src="{{ publication.publication_image.url }}" class="card-img-top" alt="{{ publication.title }}">
+                                {% else %}
+                                    <img src="{% static 'default-publication.png' %}" class="card-img-top" alt="Default publication image">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ publication.title }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
-
-
-
-  <!-- Carousel -->
-  <div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
+<!-- Carousel -->
+<h2 class='text-center'>Our Lab</h2>
+<div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
     <!-- Indicators/dots -->
     <div class="carousel-indicators">
         {% for image in banner_images %}
@@ -58,15 +117,16 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
-  </div>
+</div>
 
-  <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-        var myCarousel = document.querySelector('#demo');
+        var myCarousel = document.querySelector('#carouselExampleControls');
         var carousel = new bootstrap.Carousel(myCarousel, {
-            interval: 3000,
+            interval: 5000,  // Adjust the interval as needed
             ride: 'carousel'
         });
     });
-  </script>
+</script>
+
 {% endblock content %}
