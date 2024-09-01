@@ -799,7 +799,7 @@ def add_contact_us(request):
 
 @login_required
 def contact_us_details_view(request):
-    contact_us_entries = ContactUs.objects.all()
+    contact_us_entries = ContactUs.objects.all().order_by('-id')
     return render(request, 'lab_app/contact_us_details.html', {'contact_us_entries': contact_us_entries})
 
 

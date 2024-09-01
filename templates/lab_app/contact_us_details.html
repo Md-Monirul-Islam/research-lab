@@ -12,7 +12,7 @@
             <p class="mb-1"><strong>Email:</strong> {{ entry.email }}</p>
             <p class="mb-1"><strong>Phone:</strong> {{ entry.phone }}</p>
             <p class="mb-1 text-justify-custom"><strong>Message:</strong> {{ entry.message }}</p>
-            <small class="text-muted">Submitted on: {{ entry.created_at }}</small>
+            <small class="text-muted">Submitted on: {{ entry.submit_date }}</small>
         </div>
         {% empty %}
         <p>No submissions yet.</p>
