@@ -79,7 +79,7 @@ urlpatterns = [
     path('contact-us-details/', views.contact_us_details_view, name='contact_us_details'),
 
     path('upload-images/', views.upload_images, name='upload_images'),
-    # path('gallery/', views.image_gallery_view, name='image_gallery'),
+    path('image-gallery/', views.image_gallery_view, name='image_gallery'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

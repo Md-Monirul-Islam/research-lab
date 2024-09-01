@@ -3,26 +3,33 @@
 {% block content %}
 
 <div class="container mt-5">
-    <h1 class="text-center mb-4">{{ category.category }}</h1>
-    <div class="row">
-        {% for profile in profiles %}
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    {% if profile.profile_photo %}
-                        <img src="{{ profile.profile_photo.url }}" class="card-img-top" alt="{{ profile.name }}">
-                    {% else %}
-                        <img src="{% static 'default-profile.png' %}" class="card-img-top" alt="Default profile picture">
-                    {% endif %}
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ profile.name }}</h5>
-                        <p class="card-text"><strong></strong> {{ profile.position }}</p>
-                        <p class="card-text"><strong></strong> {{ profile.affiliation }}</p>
-                        <a href="{% url 'lab_app:people_profile_detail' profile.id %}" class="btn btn-primary mt-auto">View Profile</a>
+    {% if category %}
+        <h1 class="text-center mb-4">{{ category.category }}</h1>
+        <div class="row">
+            {% for profile in profiles %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        {% if profile.profile_photo %}
+                            <img src="{{ profile.profile_photo.url }}" class="card-img-top" alt="{{ profile.name }}">
+                        {% else %}
+                            <img src="{% static 'default-profile.png' %}" class="card-img-top" alt="Default profile picture">
+                        {% endif %}
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ profile.name }}</h5>
+                            <p class="card-text"><strong></strong> {{ profile.position }}</p>
+                            <p class="card-text"><strong></strong> {{ profile.affiliation }}</p>
+                            <a href="{% url 'lab_app:people_profile_detail' profile.id %}" class="btn btn-primary mt-auto">View Profile</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <h4 class="alert-heading">Category Not Found</h4>
+            <p>Sorry, the category you are looking for does not exist.</p>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock content %}

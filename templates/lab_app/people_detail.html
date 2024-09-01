@@ -24,7 +24,7 @@
 
 <div class="row">
     <div class="col-md-3">
-        <div class="bio-card text-center">
+        <div class="bio-card text-center ms-4">
             <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}" class="profile-image mb-3">
             <h5>{{ profile.name }}</h5>
             <p>{{ profile.position }}</p>
@@ -37,10 +37,10 @@
         <p class="text-white text-justify-custom mb-3 biography-text">{{ profile.biography }}</p>
         <div class="mb-3">
             <a target="_blank" href="{{ profile.google_scholar }}" class="text-white d-block biography-text">
-                <p>Google Scholar: {{ profile.google_scholar }}</p>
+                <p class="text-white">Google Scholar: {{ profile.google_scholar }}</p>
             </a>
             <a target="_blank" href="{{ profile.research_gate }}" class="text-white d-block biography-text">
-                <p>Research Gate: {{ profile.research_gate }}</p>
+                <p class="text-white">Research Gate: {{ profile.research_gate }}</p>
             </a>
         </div>
     </div>

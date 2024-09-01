@@ -646,9 +646,12 @@ def people_list(request):
 
 
 def category_people_list(request, category_name):
-    category = get_object_or_404(PeopleCategory, category=category_name)
-    profiles = PeopleProfile.objects.filter(category=category)
-    return render(request, 'lab_app/category_people_list.html', {'category': category, 'profiles': profiles})
+    try:
+        category = PeopleCategory.objects.get(category=category_name)
+        profiles = PeopleProfile.objects.filter(category=category)
+        return render(request, 'lab_app/category_people_list.html', {'category': category, 'profiles': profiles})
+    except PeopleCategory.DoesNotExist:
+        return render(request, 'lab_app/category_people_list.html', {'category': None, 'profiles': []})
 
 
 
@@ -746,9 +749,15 @@ def author_research(request, author_id):
 
 
 def research_detail(request, research_id):
-    research = get_object_or_404(Research, id=research_id)
+    try:
+        research = Research.objects.get(id=research_id)
+    except Research.DoesNotExist:
+        return render(request, '404.html', status=404)
     related_research = Research.objects.filter(author=research.author).exclude(id=research.id)
-    return render(request, 'lab_app/research_detail.html', {'research': research, 'related_research': related_research})
+    return render(request, 'lab_app/research_detail.html', {
+        'research': research,
+        'related_research': related_research
+    })
 
 
 
@@ -805,22 +814,7 @@ def contact_us_details_view(request):
 
 
 
-# def upload_images(request):
-#     if request.method == 'POST':
-#         form = ImageGalleryForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             # If uploading multiple images, use getlist with the correct field name
-#             images = request.FILES.getlist('image')  # Ensure 'image' matches your form field name
-#             for image in images:
-#                 ImageGallery.objects.create(image=image)
-#             messages.success(request, "Images uploaded successfully!")
-#             return redirect('lab_app:home_page_view')
-#     else:
-#         form = ImageGalleryForm()
-    
-#     context = {'form': form}
-#     return render(request, 'lab_app/upload_images.html', context)
-
+@login_required
 def upload_images(request):
     if request.method == 'POST':
         form = ImageGalleryForm(request.POST, request.FILES)
@@ -830,9 +824,21 @@ def upload_images(request):
             for image in images:
                 ImageGallery.objects.create(image=image)
             messages.success(request, "Images uploaded successfully!")
-            return redirect('lab_app:home_page_view')
+            return redirect('lab_app:image_gallery')
+        else:
+            messages.error(request, "Somethsings went wrong!")
     else:
         form = ImageGalleryForm()
     
     context = {'form': form}
     return render(request, 'lab_app/upload_images.html', context)
+
+
+
+
+def image_gallery_view(request):
+    images = ImageGallery.objects.all().order_by('-id')
+    context = {
+        'images': images,
+    }
+    return render(request, 'lab_app/image_gallery.html', context)

@@ -41,6 +41,16 @@
                         </li>
                     {% endif %}
 
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'image_gallery' %}active{% endif %}" href="{% url 'lab_app:image_gallery' %}">Gallery</a>
+                    </li>
+
+                    {% if user.is_authenticated and not user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'view_profile' %}active{% endif %}" href="{% url 'lab_app:view_profile' %}">Profile</a>
+                    </li>
+                    {% endif %}
+
                     {% if user.is_authenticated and user.is_superuser %}
                     <li class="nav-item">
                         <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'bashboard' %}active{% endif %}" href="{% url 'lab_app:bashboard' %}">Dashboard</a>
@@ -53,11 +63,6 @@
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'lab_app:login' %}">Login</a>
-                    </li>
-                    {% endif %}
-                    {% if user.is_authenticated and not user.is_superuser %}
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold text-warning {% if request.resolver_match.url_name == 'view_profile' %}active{% endif %}" href="{% url 'lab_app:view_profile' %}">Profile</a>
                     </li>
                     {% endif %}
                 </ul>

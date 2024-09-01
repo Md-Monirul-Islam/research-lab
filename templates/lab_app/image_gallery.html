@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.text-muted {
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.row {
+    justify-content: center;
+}
+
+.con{
+    margin: 60px;
+    margin-top: 2px;
+}
+
+</style>
+<div class="con"><br>
+    <h1 class="text-center mb-4">Image Gallery</h1>
+    <div class="row">
+        {% for image in images %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{ image.image.url }}" class="card-img-top" alt="Image">
+                <div class="card-body text-center">
+                    <p class="card-text">{{ image.title }}</p>
+                    <div class="d-flex justify-content-between">
+                        <!-- <span class="text-muted">{{ image.likes }} Likes</span>
+                        <span class="text-muted">{{ image.views }} Views</span> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
