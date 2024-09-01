@@ -3,11 +3,22 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Upload Images</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
+    <h1 class="text-center mb-4">Upload Images</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="image">Choose Images</label>
+                            <input type="file" id="image" name="image" multiple class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Upload</button>
+                    </form>                                                      
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock %}
+{% endblock content %}

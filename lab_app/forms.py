@@ -220,28 +220,9 @@ class ContactUsForm(forms.ModelForm):
         }
 
 
-from django.db import models
-class MultipleFileInput(forms.ClearableFileInput):
-    allow_multiple_selected = True  # Allow multiple file selection
-
-class MultipleFileField(forms.FileField):  # Inherit from base FileField
-    def __init__(self, *args, **kwargs):
-        # Set the widget to allow multiple selections
-        kwargs['widget'] = MultipleFileInput()
-        super().__init__(*args, **kwargs)  # Call base class constructor with all arguments
 
 class ImageGalleryForm(forms.ModelForm):
-    images = MultipleFileField()  # No need for 'required' argument
-
+    
     class Meta:
         model = ImageGallery
-        fields = ['images']
-
-    def save(self, commit=True):
-        image_gallery_instances = []
-        for image in self.files.getlist('images'):
-            image_gallery_instance = ImageGallery(image=image)
-            if commit:
-                image_gallery_instance.save()
-            image_gallery_instances.append(image_gallery_instance)
-        return image_gallery_instances
+        fields = ['image',]

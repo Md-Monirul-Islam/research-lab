@@ -805,14 +805,34 @@ def contact_us_details_view(request):
 
 
 
+# def upload_images(request):
+#     if request.method == 'POST':
+#         form = ImageGalleryForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             # If uploading multiple images, use getlist with the correct field name
+#             images = request.FILES.getlist('image')  # Ensure 'image' matches your form field name
+#             for image in images:
+#                 ImageGallery.objects.create(image=image)
+#             messages.success(request, "Images uploaded successfully!")
+#             return redirect('lab_app:home_page_view')
+#     else:
+#         form = ImageGalleryForm()
+    
+#     context = {'form': form}
+#     return render(request, 'lab_app/upload_images.html', context)
+
 def upload_images(request):
     if request.method == 'POST':
         form = ImageGalleryForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # Handle multiple files
+            images = request.FILES.getlist('image')
+            for image in images:
+                ImageGallery.objects.create(image=image)
+            messages.success(request, "Images uploaded successfully!")
             return redirect('lab_app:home_page_view')
-
     else:
         form = ImageGalleryForm()
-
-    return render(request, 'lab_app/upload_images.html', {'form': form})
+    
+    context = {'form': form}
+    return render(request, 'lab_app/upload_images.html', context)
