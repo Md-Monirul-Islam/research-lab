@@ -1,62 +1,80 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block content %}
-<div class="text-center bg-warning m-5 p-4">         
-    <div class="d-flex justify-content-center mt-2 text-decoration-none">
-        <div class="m-3">
-            <a class="fw-bold" href="{% url 'lab_app:author_education' profile.id %}">Education</a>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Profile Section -->
+        <div class="col-md-4">
+            <div class="profile"><br>
+                <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}" class="profile-image mb-3" style="width: 150px; height: 200px;">
+                <div class="profile-info mt-3">
+                    <h3 class="text-black">{{ profile.full_name }}</h3>
+                    <p>{{ profile.designation }}</p>
+                </div>
+                <div class="profile-login mt-3">
+                    <a class="btn btn-success" href="{% url 'lab_app:login' %}">Profile Login</a>
+                </div>
+                <div class="contact-info mt-3">
+                    <p>Email: <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+                    <p>Contact: {{ profile.contact }}</p>
+                </div>
+            </div>
         </div>
-        <div class="nav-item dropdown m-3">
-            <a class="nav-link dropdown-toggle fw-bold" href="#!" id="navbarDropdown" role="button" aria-expanded="false">
-                Research
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'lab_app:research_detail' profile.id %}">Researches</a></li>
-                <li><a class="dropdown-item" href="{% url 'lab_app:author_publications' profile.id %}">Publications</a></li>
-                <li><a class="dropdown-item" href="{% url 'lab_app:author_projects' profile.id %}">Projects</a></li>
-            </ul>
-        </div>
-        <div class="m-3">
-            <a class="fw-bold" href="{% url 'lab_app:contact_info' profile.id %}">Contact</a>
+
+        <!-- Tab Section -->
+        <div class="col-md-8">
+            <div class="tabs">
+                <ul class="nav nav-tabs" id="personTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab">Basic</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab">Education</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="project-tab" data-bs-toggle="tab" data-bs-target="#project" type="button" role="tab">Projects</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content bg-light p-4 mt-3 rounded">
+                    <!-- Basic Info Tab -->
+                    <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                        <h4 class="text-black">Basic Information</h4>
+                        <p class="text-black">{{ profile.basic_info }}</p>
+                    </div>
+
+                    <!-- Education Tab -->
+                    <div class="tab-pane fade" id="education" role="tabpanel">
+                        <h4>Education</h4>
+                        <ul>
+                            {% for education in profile_education %}
+                            <li>{{ education.degree }} - {{ education.institution }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Project Tab -->
+                    <div class="tab-pane fade" id="project" role="tabpanel">
+                        <h4>Projects</h4>
+                        <div class="row">
+                            {% for project in profile_projects %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}" style="height: 200px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ project.project_title }}</h5>
+                                        <p class="card-text">{{ project.project_description|truncatewords:15 }}</p>
+                                        <a href="{% url 'lab_app:project_detail' project.id %}" class="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-3">
-        <div class="bio-card text-center ms-4">
-            <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}" class="profile-image mb-3">
-            <h5>{{ profile.name }}</h5>
-            <p>{{ profile.position }}</p>
-            <p>{{ profile.affiliation }}</p>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-6">
-        <h2 class="text-white mb-3 p-1">Biography</h2>
-        <p class="text-white text-justify-custom mb-3 biography-text">{{ profile.biography }}</p>
-        <div class="mb-3">
-            <a target="_blank" href="{{ profile.google_scholar }}" class="text-white d-block biography-text">
-                <p class="text-white">Google Scholar: {{ profile.google_scholar }}</p>
-            </a>
-            <a target="_blank" href="{{ profile.research_gate }}" class="text-white d-block biography-text">
-                <p class="text-white">Research Gate: {{ profile.research_gate }}</p>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <h2 class="text-white">Research Interests</h2>
-        <ul class="list-group list-group-flush shadow-sm">
-            {% for interest in research_interests %}
-                <li class="list-group-item d-flex align-items-center">
-                    <i class="bi bi-lightbulb-fill text-warning me-2"></i>
-                    <span>{{ interest.interest_name }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    
-</div>
-<br>
-{% endblock content %}
+{% endblock %}

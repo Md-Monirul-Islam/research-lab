@@ -15,7 +15,7 @@ def home_page_view(request):
     project = Project.objects.latest('id') if Project.objects.exists() else None
     research = Research.objects.latest('id') if Research.objects.exists() else None
     publication = Publication.objects.latest('id') if Publication.objects.exists() else None
-    profile = PeopleProfile.objects.all()
+    profile = PeopleProfile.objects.first()
     context = {
         'banner_images': banner_images,
         'project': project,
@@ -672,7 +672,9 @@ class PeopleProfileDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['research_interests'] = ResearchInterest.objects.filter(author=self.object)
+        context['related_projects'] = Project.objects.filter(author=self.object)[:5]
         return context
+
 
 
 
