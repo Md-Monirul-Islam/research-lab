@@ -15,11 +15,13 @@ def home_page_view(request):
     project = Project.objects.latest('id') if Project.objects.exists() else None
     research = Research.objects.latest('id') if Research.objects.exists() else None
     publication = Publication.objects.latest('id') if Publication.objects.exists() else None
+    profile = PeopleProfile.objects.all()
     context = {
         'banner_images': banner_images,
         'project': project,
         'research': research,
         'publication': publication,
+        'profile':profile,
     }
     return render(request, 'lab_app/home.html', context)
 

@@ -8,13 +8,13 @@
             <div class="mb-4">
                 <img src="{{ project.project_image.url }}" class="img-fluid" alt="{{ project.project_title }}">
             </div>
-            <h2 class="text-primary">{{ project.project_title }}</h2>
-            <p class="text-secondary">{{ project.project_description }}</p>
-            <div class="mt-4">
-                <p><strong>Start Date:</strong> {{ project.stat_date }}</p>
-                <p><strong>End Date:</strong> {{ project.end_date }}</p>
-                <p><strong>Department:</strong> {{ project.department }}</p>
-                <p><strong>Funding Authority:</strong> {{ project.funding_authority }}</p>
+            <h3 class="text-white">{{ project.project_title }}</h3>
+            <p class="text-white">{{ project.project_description }}</p>
+            <div class="mt-4 text-white">
+                <p class="text-white"><strong>Start Date:</strong> {{ project.stat_date }}</p>
+                <p class="text-white"><strong>End Date:</strong> {{ project.end_date }}</p>
+                <p class="text-white"><strong>Department:</strong> {{ project.department }}</p>
+                <p class="text-white"><strong>Funding Authority:</strong> {{ project.funding_authority }}</p>
             </div>
         </div>
 
