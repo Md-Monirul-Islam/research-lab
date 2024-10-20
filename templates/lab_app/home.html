@@ -49,11 +49,38 @@
   height: auto;
 }
 
+h2 {
+  position: relative;
+  font-weight: 700;
+  color: #333;
+}
+
 h3 {
   color: white;
   font-weight: bold;
   margin-bottom: 40px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.quick-links {
+  margin-top: 20px;
+}
+
+.card-header {
+  background-color: #008080;
+}
+
+.list-group-item a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.list-group-item a:hover {
+  text-decoration: underline;
+}
+
+.d-none {
+  display: none;
 }
 
 .cont{
@@ -99,6 +126,58 @@ h3 {
       </div>
     </div>
   </div>
+
+
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Left Section: Message from Head -->
+      <div class="col-lg-8">
+        <h2 class="text-uppercase mb-4">
+          <span class="underline"></span>Message from Head
+        </h2>
+        <div class="row align-items-center">
+          <div class="col-md-4">
+            <img src="{% static 'images/Nazmul Sir1.jpg' %}" alt="Head" class="img-fluid rounded shadow" />
+          </div>
+          <div class="col-md-8">
+            <h4>Prof. Dr. Md. Nazmul Hasan</h4>
+      
+            <p class="text-justify">
+              On behalf of the entire Biotechnology and Genetic Engineering (BGE) family of Khulna University, welcome to our website. 
+              BGE discipline in Khulna University offers undergraduate, MS, and PhD level education. 
+              <span id="hiddenDots">...</span>
+              <span id="fullText" style="display: none;">
+                Our undergraduate program was launched in 1995 with a bold vision to produce quality biotech graduates for national and international arenas.
+                We have carefully designed our syllabus to tackle this multidisciplinary subject so that students can make their careers in diverse allied fields. 
+                Over the years, we have developed laboratory facilities and teaching pedagogy to meet international standards.
+              </span>
+            </p>
+      
+            <a href="#" id="toggleLink"  onclick="toggleText2(); return false;">Read More</a>
+          </div>
+        </div>
+      </div>
+      
+  
+      <!-- Right Section: Quick Links -->
+      <div class="col-lg-4">
+        <div class="quick-links card">
+          <div class="card-header bg-teal text-white">
+            <strong>Quick Links</strong>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="#">JUST Studies</a></li>
+            <li class="list-group-item"><a href="#">Turnitin at JUST</a></li>
+            <li class="list-group-item"><a href="{% url 'lab_app:central_contact' %}">Get in Touch</a></li>
+            <li class="list-group-item"><a href="#">Ministry of Science and Technology</a></li>
+            <li class="list-group-item"><a href="#">University Grants Commission</a></li>
+            <li class="list-group-item"><a href="#">Ministry of Education</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   
 
 <div class="container mt-5 mb-5">

@@ -9,6 +9,7 @@ class BannerImage(models.Model):
 
 class PeopleCategory(models.Model):
     category = models.CharField(max_length=200,null=True,blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.category
@@ -25,6 +26,7 @@ class PeopleProfile(models.Model):
     biography = models.TextField(null=True, blank=True)
     google_scholar = models.CharField(max_length=300, blank=True, null=True)
     research_gate = models.CharField(max_length=300, blank=True, null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name or "Unnamed Profile"
@@ -36,6 +38,7 @@ class Publication(models.Model):
     doi_link = models.CharField(max_length=300,null=True,blank=True)
     publish_year = models.CharField(max_length=200,null=True,blank=True)
     publication_image = models.ImageField(upload_to='publication/images/',null=True,blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         title_str = str(self.title) if self.title else "Untitled Publication"
@@ -48,6 +51,7 @@ class Education(models.Model):
     degree = models.CharField(max_length=200,null=True)
     duration = models.CharField(max_length=200,null=True)
     university_or_school = models.CharField(max_length=200,null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.degree
@@ -62,6 +66,7 @@ class Project(models.Model):
     department =models.CharField(max_length=200,null=True)
     funding_authority = models.CharField(max_length=200,null=True,blank=True)
     project_image = models.ImageField(upload_to='project/images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.author}"
@@ -78,6 +83,7 @@ class Contact(models.Model):
     phone = models.CharField(max_length=14,blank=True,null=True)
     email = models.CharField(max_length=200,blank=True,null=True)
     skype = models.CharField(max_length=200,blank=True,null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.author}"
@@ -87,6 +93,7 @@ class Contact(models.Model):
 class ResearchInterest(models.Model):
     author = models.ForeignKey(PeopleProfile,on_delete=models.CASCADE)
     interest_name = models.CharField(max_length=300,null=True,blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
 
@@ -94,6 +101,7 @@ class Research(models.Model):
     author = models.ForeignKey(PeopleProfile,on_delete=models.CASCADE)
     title = models.TextField(null=True,blank=True)
     project_image = models.ImageField(upload_to='research/images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.author}"
@@ -111,6 +119,7 @@ class CentralContact(models.Model):
     email = models.CharField(max_length=200,blank=True,null=True)
     skype = models.CharField(max_length=200,blank=True,null=True)
     address_image = models.ImageField('address/image/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.department}"
@@ -126,6 +135,7 @@ class About(models.Model):
     about5 = models.TextField(blank=True,null=True)
     about6 = models.TextField(blank=True,null=True)
     about7 = models.TextField(blank=True,null=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.about1}"
@@ -139,6 +149,7 @@ class ContactUs(models.Model):
     phone = models.CharField(max_length=200,null=False,blank=False)
     message = models.TextField(null=False,blank=False)
     submit_date = models.DateField(auto_now_add=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.full_name
@@ -147,6 +158,7 @@ class ContactUs(models.Model):
 
 class ImageGallery(models.Model):
     image = models.ImageField(upload_to='imageGallery/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.image.name)
