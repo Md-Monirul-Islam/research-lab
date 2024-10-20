@@ -2,32 +2,41 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5">
+<br>
+<div class="people">
     <div class="row">
         <!-- Profile Section -->
-        <div class="col-md-4">
-            <div class="profile"><br>
-                <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}" class="profile-image mb-3" style="width: 150px; height: 200px;">
-                <div class="profile-info mt-3">
-                    <h3 class="text-black">{{ profile.full_name }}</h3>
-                    <p>{{ profile.designation }}</p>
-                </div>
+        <div class="col-md-3">
+            <div class="profile">
+                <img src="{{ profile.profile_photo.url }}" alt="{{ profile.name }}" class="profile-image mb-3 ms-5" style="width: 150px; height: 200px;">
+                <h3 class="text-black mt-3 ms-5">{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+                <p class="ms-5">{{ profile.position }}</p>
                 <div class="profile-login mt-3">
-                    <a class="btn btn-success" href="{% url 'lab_app:login' %}">Profile Login</a>
+                    <a class="btn btn-success ms-5" href="{% url 'lab_app:login' %}">Profile Login</a>
                 </div>
-                <div class="contact-info mt-3">
-                    <p>Email: <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
-                    <p>Contact: {{ profile.contact }}</p>
+                <div class="contact-info mt-3 ms-5">
+                    <p>Email: <a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></p>
+                    {% if contact %}                       
+                        <p><strong>Department:</strong> {{ contact.department }}</p>
+                        <p><strong>Faculty:</strong> {{ contact.faculty }}</p>
+                        <p><strong>University:</strong> {{ contact.university }}</p>
+                        <p><strong>Office Address:</strong> {{ contact.office_address }}</p>
+                        <p><strong>Post:</strong> {{ contact.post }}</p>
+                        <p><strong>Phone:</strong> {{ contact.phone }}</p>
+                        <p><strong>Skype:</strong> {{ contact.skype }}</p>
+                    {% else %}
+                        <p>No contact information available.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
         <!-- Tab Section -->
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="tabs">
                 <ul class="nav nav-tabs" id="personTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab">Basic</button>
+                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab">Biography</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab">Education</button>
@@ -35,42 +44,66 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="project-tab" data-bs-toggle="tab" data-bs-target="#project" type="button" role="tab">Projects</button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="publication-tab" data-bs-toggle="tab" data-bs-target="#publication" type="button" role="tab">Publication</button>
+                    </li>
                 </ul>
 
                 <div class="tab-content bg-light p-4 mt-3 rounded">
-                    <!-- Basic Info Tab -->
+                    <!-- Biography Tab -->
                     <div class="tab-pane fade show active" id="basic" role="tabpanel">
-                        <h4 class="text-black">Basic Information</h4>
-                        <p class="text-black">{{ profile.basic_info }}</p>
+                        <p class="text-black text-justify-custom">{{ profile.biography }}</p>
                     </div>
 
                     <!-- Education Tab -->
                     <div class="tab-pane fade" id="education" role="tabpanel">
-                        <h4>Education</h4>
                         <ul>
                             {% for education in profile_education %}
-                            <li>{{ education.degree }} - {{ education.institution }}</li>
+                                <li class="text-black">{{ education.degree }} ({{ education.duration }}) - {{ education.university_or_school }}</li>
                             {% endfor %}
                         </ul>
                     </div>
 
-                    <!-- Project Tab -->
+                    <!-- Projects Tab -->
                     <div class="tab-pane fade" id="project" role="tabpanel">
-                        <h4>Projects</h4>
                         <div class="row">
                             {% for project in profile_projects %}
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}" style="height: 200px; object-fit: cover;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ project.project_title }}</h5>
-                                        <p class="card-text">{{ project.project_description|truncatewords:15 }}</p>
-                                        <a href="{% url 'lab_app:project_detail' project.id %}" class="btn btn-primary">View Details</a>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}" style="height: 200px; object-fit: cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ project.project_title }}</h5>
+                                            <p class="card-text">{{ project.project_description|truncatewords:15 }}</p>
+                                            <a href="{% url 'lab_app:project_detail' project.id %}" class="btn btn-primary">View Details</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             {% endfor %}
                         </div>
+                    <!-- Publications Tab -->
+                    <div class="tab-pane fade" id="publication" role="tabpanel">
+                        <div class="row">
+                            {% for publication in profile_publications %}
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        {% if publication.publication_image %}
+                                            <img src="{{ publication.publication_image.url }}" class="card-img-top" alt="{{ publication.title }}" style="height: 200px; object-fit: cover;">
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ publication.title }}</h5>
+                                            {% if publication.doi_link %}
+                                                <a class="btn btn-primary" target="_blank" href="{{ publication.doi_link }}">DOI Link</a>
+                                            {% else %}
+                                                <p>No DOI link available</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    </div>                    
                     </div>
                 </div>
             </div>

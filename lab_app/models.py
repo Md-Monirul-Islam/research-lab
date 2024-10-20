@@ -27,7 +27,6 @@ class PeopleProfile(models.Model):
     research_gate = models.CharField(max_length=300, blank=True, null=True)
 
     def __str__(self):
-        # Ensure this returns a string
         return self.name or "Unnamed Profile"
     
 

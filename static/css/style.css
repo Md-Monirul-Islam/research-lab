@@ -295,6 +295,11 @@ h2.text-primary {
   color: #555;
 }
 
+.people{
+  margin: 50px;
+  
+}
+
 /* design education with profile design */
 .profile-container {
   max-width: 350px;

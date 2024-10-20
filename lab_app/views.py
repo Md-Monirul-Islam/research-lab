@@ -672,7 +672,10 @@ class PeopleProfileDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['research_interests'] = ResearchInterest.objects.filter(author=self.object)
-        context['related_projects'] = Project.objects.filter(author=self.object)[:5]
+        context['contact'] = Contact.objects.filter(author=self.object).first()
+        context['profile_education'] = Education.objects.filter(author=self.object)
+        context['profile_projects'] = Project.objects.filter(author=self.object)
+        context['profile_publications'] = Publication.objects.filter(author=self.object)
         return context
 
 
