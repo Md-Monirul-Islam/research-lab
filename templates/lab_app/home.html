@@ -86,6 +86,52 @@ h3 {
 .cont{
   margin-left: 200px;
 }
+
+.research-section {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.card {
+  width: 350px;
+  min-height: 450px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 10px; /* Reduces space inside the card */
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  word-wrap: break-word;  /* Ensures words break if needed */
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  margin-bottom: 4px; /* Reduces space between author and button */
+}
+
+.btn-sm {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+  margin-top: auto; /* Ensures button stays at the bottom */
+}
+
+
 </style>
 
 <!-- Hero Section -->
@@ -180,80 +226,34 @@ h3 {
   
   
 
-<div class="container mt-5 mb-5">
-    <div class="row">
-        <div class="col-12 col-md-6 d-flex flex-column flex-md-row align-items-md-center">
-            <img class="img-fluid border border-warning rounded-3 mb-3 mb-md-0" src="{% static 'images/Nazmul Sir1.jpg' %}" alt="" style="max-width: 100%; height: auto; max-height: 400px; object-fit: cover;">
-            <p class="text-justify-custom text-white ms-md-3 mb-0">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, sequi sed. Laborum dignissimos harum laboriosam amet nobis corporis sint velit exercitationem, fugiat, nisi quis? Natus provident labore minima harum iusto asperiores beatae voluptatum totam explicabo quaerat dicta consectetur ducimus autem, cupiditate ea eius sit quam nisi ipsam. Sed eaque est eveniet et, possimus nihil! Nemo eius magni possimus laborum soluta nihil laudantium praesentium, non repellendus blanditiis, accusamus aut vero reprehenderit ut corrupti eaque quia odit exercitationem beatae neque recusandae ducimus rerum repudiandae! Eveniet libero ipsam expedita ipsum quos, quaerat, corporis quam deleniti corrupti molestias ex eaque reprehenderit earum. Quo, quae!
-            </p>
-        </div>
-        <div class="col-12 col-md-6 justify-content-end">
-            <p class="text-white text-center mb-4">Latest Researches</p>
-            <!-- Carousel Container -->
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <!-- Project Carousel Item -->
-                    {% if project %}
-                        <div class="carousel-item active" data-bs-interval="5000">
-                            <div class="card">
-                                {% if project.project_image %}
-                                    <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}">
-                                {% else %}
-                                    <img src="{% static 'default-project.png' %}" class="card-img-top" alt="Default project image">
-                                {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ project.project_title }}</h5>
-                                    <p class="card-text">{{ project.project_description }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                    
-                    <!-- Research Carousel Item -->
-                    {% if research %}
-                        <div class="carousel-item" data-bs-interval="5000">
-                            <div class="card">
-                                {% if research.project_image %}
-                                    <img src="{{ research.project_image.url }}" class="card-img-top" alt="{{ research.title }}">
-                                {% else %}
-                                    <img src="{% static 'default-research.png' %}" class="card-img-top" alt="Default research image">
-                                {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ research.title }}</h5>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                    
-                    <!-- Publication Carousel Item -->
-                    {% if publication %}
-                        <div class="carousel-item" data-bs-interval="5000">
-                            <div class="card">
-                                {% if publication.publication_image %}
-                                    <img src="{{ publication.publication_image.url }}" class="card-img-top" alt="{{ publication.title }}">
-                                {% else %}
-                                    <img src="{% static 'default-publication.png' %}" class="card-img-top" alt="Default publication image">
-                                {% endif %}
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ publication.title }}</h5>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </a>
+  <div class="mt-5 mb-5">
+    <div class="research-section">
+        <h2 class="ms-5 text-center">RESEARCH ACTIVITIES <a href="#" class="view-all">view all research →</a></h2>
+
+        <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+          <div class="d-flex">
+            {% for item in research %}
+            <div class="card m-2" style="width: auto; min-height: auto;">
+              <img src="{{ item.image.url }}" alt="Not Found" 
+                   class="card-img-top" style="height: 200px; object-fit: cover;">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">
+                  {{ item.title }}
+                </h5>
+                <p class="card-text mb-2">
+                  <strong>Author:</strong> {{ item.author }}
+                </p>
+                <a href="#" class="btn btn-primary btn-sm align-self-start">Read More</a>
+              </div>
             </div>
-        </div>
-    </div>
+            {% endfor %}
+          </div>
+        </marquee>
+    </div>      
 </div>
+
+
+
 
 <!-- Carousel -->
 <h2 class='text-center'>Our Lab</h2>

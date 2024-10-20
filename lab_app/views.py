@@ -12,9 +12,9 @@ from lab_app.models import About, BannerImage, CentralContact, Contact, ContactU
 # Create your views here.
 def home_page_view(request):
     banner_images = BannerImage.objects.order_by('-uploaded_at')[:3]
-    project = Project.objects.latest('id') if Project.objects.exists() else None
-    research = Research.objects.latest('id') if Research.objects.exists() else None
-    publication = Publication.objects.latest('id') if Publication.objects.exists() else None
+    project = Project.objects.all() if Project.objects.exists() else None
+    research = Research.objects.order_by('-uploaded_at') if Research.objects.exists() else None
+    publication = Publication.objects.all() if Publication.objects.exists() else None
     profile = PeopleProfile.objects.first()
     context = {
         'banner_images': banner_images,
