@@ -53,6 +53,7 @@ body {
 }
 header{
     margin-bottom: 5px;
+    background-color: #2196f3;
 }
 /* Add transition and background color to dropdown items */
 .navbar-nav .nav-item .dropdown-menu {
@@ -618,9 +619,9 @@ h1 {
       align-items: center;
   }
   
-  .container {
+  /* .container {
       color: #fff;
-  }
+  } */
   
   h2 {
       font-size: 24px;
@@ -745,3 +746,6 @@ h1 {
     font-weight: 500;
 }
  /* education design end */
+
+
+ 

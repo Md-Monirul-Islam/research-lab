@@ -1,18 +1,105 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.text-content h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.underline {
+  width: 50px;
+  height: 3px;
+  background-color: orange;
+  margin-bottom: 20px;
+}
+
+.text-content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #555;
+  text-align: justify;
+}
+
+.text-content a {
+  color: blue;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.text-content a:hover {
+  text-decoration: underline;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+h3 {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cont{
+  margin-left: 200px;
+}
+</style>
 
 <!-- Hero Section -->
-<header class="hero-section">
-    <div class="overlay">
-        <div class="container text-center">
-            <h2>welcome to</h2>
-            <h1>JASHORE UNIVERSITY OF SCIENCE AND TECHNOLOGY</h1>
-            <h3>যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়</h3>
-            <a href="#" class="cta-button">CLICK HERE TO SIGNUP FOR REGULAR ALUMNI MEMBER</a>
+<div class="container mt-5">
+    <div class="row align-items-center">
+      <!-- Text Content Column -->
+      <div class="col-md-8">
+        <div class="text-content">
+          <h3 class="text-black mt-4">
+            BIOTECHNOLOGY AND GENETIC ENGINEERING <br> AT A GLANCE
+          </h3>
+          <div class="underline"></div>
+  
+          <p id="content" class="text-justify-custom">
+            Biotechnology is a series of enabling technologies which uses biological processes, organisms, 
+            or systems to produce/manufacture goods, products, and services intended to improve the quality 
+            of life. The interdisciplinary nature of this branch of science encompasses a wide range of disciplines 
+            towards the study of animals, plants, and microorganisms to harness the activities for wellbeing.
+            <span id="dots">...</span>
+            <span id="more" style="display: none;">
+              It is rapidly gaining significance and opportunities for students, faculty members, and graduates 
+              who want to explore the new frontiers of science are simply immense. Keeping the pivotal importance 
+              of Biotechnology, the government of Bangladesh has prioritized investing in biotechnology education 
+              and research. As a part of this initiative, Khulna University took the leading role of introducing 
+              the biotechnology program at the tertiary level.
+            </span>
+          </p>
+  
+          <a href="#" id="read-more" onclick="toggleText()">Read More</a>
         </div>
+      </div>
+  
+      <!-- Image Column -->
+      <div class="col-md-4">
+        <div class="image-container">
+          <img src="{% static 'images/just.jpg' %}" alt="Not Found" class="img-fluid" />
+        </div>
+      </div>
     </div>
-</header>
+  </div>
+  
 
 <div class="container mt-5 mb-5">
     <div class="row">
