@@ -676,6 +676,7 @@ class PeopleProfileDetailView(DetailView):
         context['profile_education'] = Education.objects.filter(author=self.object)
         context['profile_projects'] = Project.objects.filter(author=self.object)
         context['profile_publications'] = Publication.objects.filter(author=self.object)
+        context['profile_researches'] = Research.objects.filter(author=self.object)
         print(context['profile_publications'])
         return context
 

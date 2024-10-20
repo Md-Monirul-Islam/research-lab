@@ -59,6 +59,18 @@
                             Publication
                         </button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="author-research-tab" data-bs-toggle="tab" data-bs-target="#author-research" 
+                            type="button" role="tab" aria-controls="author-research" aria-selected="false">
+                            Research
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="research-tab" data-bs-toggle="tab" data-bs-target="#research" 
+                            type="button" role="tab" aria-controls="research" aria-selected="false">
+                            Research Interest
+                        </button>
+                    </li>
                 </ul>
                 
                 <div class="tab-content bg-light p-4 mt-3 rounded">
@@ -69,13 +81,22 @@
                 
                     <!-- Education Tab -->
                     <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
-                        <ul>
+                        <div class="timeline">
                             {% for education in profile_education %}
-                                <li class="text-black">{{ education.degree }} ({{ education.duration }}) - {{ education.university_or_school }}</li>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h5 class="degree">{{ education.degree }}</h5>
+                                    <p class="duration">Duration: {{ education.duration }}</p>
+                                    <p class="university">{{ education.university_or_school }}</p>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <p>No Education available.</p>
                             {% endfor %}
-                        </ul>
+                        </div>
                     </div>
-                
+       
                     <!-- Projects Tab -->
                     <div class="tab-pane fade" id="project" role="tabpanel" aria-labelledby="project-tab">
                         <div class="row">
@@ -91,6 +112,29 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% empty %}
+                                <p>No Projects available.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                     <!-- Research Tab -->
+                     <div class="tab-pane fade" id="author-research" role="tabpanel" aria-labelledby="author-research-tab">
+                        <div class="row">
+                            {% for profile_research in profile_researches %}
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <img src="{{ profile_research.project_image.url }}" class="card-img-top" alt="{{ profile_research.project_title }}" 
+                                             style="height: 300px; object-fit: cover;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ profile_research.title }}</h5>
+                                            <p class="card-text">{{ profile_research.project_description|truncatewords:15 }}</p>
+                                            <a href="{% url 'lab_app:research_detail' profile_research.id %}" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <p>No research available.</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -120,6 +164,23 @@
                                 </div>
                             {% empty %}
                                 <p>No publications available.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Research Interest Tab -->
+                    <div class="tab-pane fade" id="research" role="tabpanel" aria-labelledby="research-tab">
+                        <div class="row">
+                            {% for research_interest in research_interests %}
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-justify-custom">{{ research_interest.interest_name }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <p>No research interests available.</p>
                             {% endfor %}
                         </div>
                     </div>
