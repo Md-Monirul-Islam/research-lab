@@ -36,41 +36,54 @@
             <div class="tabs">
                 <ul class="nav nav-tabs" id="personTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab">Biography</button>
+                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" 
+                            type="button" role="tab" aria-controls="basic" aria-selected="true">
+                            Biography
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab">Education</button>
+                        <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" 
+                            type="button" role="tab" aria-controls="education" aria-selected="false">
+                            Education
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="project-tab" data-bs-toggle="tab" data-bs-target="#project" type="button" role="tab">Projects</button>
+                        <button class="nav-link" id="project-tab" data-bs-toggle="tab" data-bs-target="#project" 
+                            type="button" role="tab" aria-controls="project" aria-selected="false">
+                            Projects
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="publication-tab" data-bs-toggle="tab" data-bs-target="#publication" type="button" role="tab">Publication</button>
+                        <button class="nav-link" id="publication-tab" data-bs-toggle="tab" data-bs-target="#publication" 
+                            type="button" role="tab" aria-controls="publication" aria-selected="false">
+                            Publication
+                        </button>
                     </li>
                 </ul>
-
+                
                 <div class="tab-content bg-light p-4 mt-3 rounded">
                     <!-- Biography Tab -->
-                    <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                    <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
                         <p class="text-black text-justify-custom">{{ profile.biography }}</p>
                     </div>
-
+                
                     <!-- Education Tab -->
-                    <div class="tab-pane fade" id="education" role="tabpanel">
+                    <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
                         <ul>
                             {% for education in profile_education %}
                                 <li class="text-black">{{ education.degree }} ({{ education.duration }}) - {{ education.university_or_school }}</li>
                             {% endfor %}
                         </ul>
                     </div>
-
+                
                     <!-- Projects Tab -->
-                    <div class="tab-pane fade" id="project" role="tabpanel">
+                    <div class="tab-pane fade" id="project" role="tabpanel" aria-labelledby="project-tab">
                         <div class="row">
                             {% for project in profile_projects %}
                                 <div class="col-md-4 mb-4">
                                     <div class="card">
-                                        <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}" style="height: 200px; object-fit: cover;">
+                                        <img src="{{ project.project_image.url }}" class="card-img-top" alt="{{ project.project_title }}" 
+                                             style="height: 200px; object-fit: cover;">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ project.project_title }}</h5>
                                             <p class="card-text">{{ project.project_description|truncatewords:15 }}</p>
@@ -80,17 +93,23 @@
                                 </div>
                             {% endfor %}
                         </div>
+                    </div>
+                
                     <!-- Publications Tab -->
-                    <div class="tab-pane fade" id="publication" role="tabpanel">
+                    <div class="tab-pane fade" id="publication" role="tabpanel" aria-labelledby="publication-tab">
                         <div class="row">
                             {% for publication in profile_publications %}
                                 <div class="col-md-4 mb-4">
                                     <div class="card">
                                         {% if publication.publication_image %}
-                                            <img src="{{ publication.publication_image.url }}" class="card-img-top" alt="{{ publication.title }}" style="height: 200px; object-fit: cover;">
+                                            <img src="{{ publication.publication_image.url }}" class="card-img-top" alt="{{ publication.title }}" 
+                                                 style="height: 200px; object-fit: cover;">
+                                        {% else %}
+                                            <p>No image available</p>
                                         {% endif %}
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ publication.title }}</h5>
+                                            <h5 class="card-title text-justify-custom">{{ publication.title }}</h5>
+                                            <p><strong>Published:</strong> {{ publication.publish_year }}</p>
                                             {% if publication.doi_link %}
                                                 <a class="btn btn-primary" target="_blank" href="{{ publication.doi_link }}">DOI Link</a>
                                             {% else %}
@@ -99,15 +118,11 @@
                                         </div>
                                     </div>
                                 </div>
+                            {% empty %}
+                                <p>No publications available.</p>
                             {% endfor %}
                         </div>
                     </div>
-                    
-                    </div>                    
-                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+                
 {% endblock %}

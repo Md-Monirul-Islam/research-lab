@@ -297,7 +297,7 @@ h2.text-primary {
 
 .people{
   margin: 50px;
-  
+
 }
 
 /* design education with profile design */
@@ -540,7 +540,7 @@ h2.text-primary {
   color: #333;
   font-weight: bold;
   margin-bottom: 15px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .card-text {
