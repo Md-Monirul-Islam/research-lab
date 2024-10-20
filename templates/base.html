@@ -24,10 +24,57 @@
   <style>
     {% block custom_css %}
     {% endblock custom_css %}
+    .header-container {
+      align-items: center;
+      padding: 10px 15px;
+  }
+
+  .department-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 0;
+      color: #1d3557;
+  }
+
+  .university-name {
+      font-size: 1.2rem;
+      color: #e76f51;
+      font-family: 'SolaimanLipi', sans-serif;
+  }
+
+  @media (max-width: 768px) {
+      .department-title {
+          font-size: 1.2rem;
+      }
+
+      .university-name {
+          font-size: 1rem;
+      }
+
+      img {
+          width: 40px;
+          height: 35px;
+      }
+  }
   </style>
 </head>
 <body>
+  
   {% include 'navbar.html' %}
+  <div class="container mt-4">
+    <div class="row align-items-center">
+        <!-- Logo Section -->
+        <div class="col-auto">
+            <img class="me-3" src="{% static 'images/JUST_logo.jpg' %}" alt="JUST Logo" style="width:55px; height:50px;">
+        </div>
+
+        <!-- Text Section -->
+        <div class="col">
+            <p class="department-title mb-1">Genetic Engineering and Biotechnology</p>
+            <p class="university-name mb-0">যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়</p>
+        </div>
+    </div>
+  </div>
 
   <div>
     {% if messages %}

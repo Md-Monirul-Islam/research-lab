@@ -24,6 +24,27 @@
                         <p><strong>Post:</strong> {{ contact.post }}</p>
                         <p><strong>Phone:</strong> {{ contact.phone }}</p>
                         <p><strong>Skype:</strong> {{ contact.skype }}</p>
+                        {% if profile.google_scholar %}
+                            <p>
+                                Google Scholar: 
+                                <a href="{{ profile.google_scholar }}" target="_blank" rel="noopener noreferrer">
+                                    Visit Profile
+                                </a>
+                            </p>
+                            {% else %}
+                            <p>Google Scholar: Not available</p>
+                            {% endif %}
+                            {% if profile.research_gate %}
+                            <p>
+                                Research Gate: 
+                                <a href="{{ profile.research_gate }}" target="_blank" rel="noopener noreferrer">
+                                    Visit Profile
+                                </a>
+                            </p>
+                            {% else %}
+                            <p>Research Gate: Not available</p>
+                            {% endif %}
+                            
                     {% else %}
                         <p>No contact information available.</p>
                     {% endif %}
