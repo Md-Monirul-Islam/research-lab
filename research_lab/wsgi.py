@@ -15,11 +15,5 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 
 # application = get_wsgi_application()
 
-import os
-from django.core.wsgi import get_wsgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'research_lab.settings')
-application = get_wsgi_application()
-
-# Add this alias for Vercel
+from research_lab import application  # Replace `myproject` with your Django project’s name
 app = application
