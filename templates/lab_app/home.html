@@ -92,38 +92,6 @@ h3 {
   background-color: #f9f9f9;
 }
 
-.card {
-  width: 350px;
-  min-height: 450px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-bottom: 10px; /* Reduces space inside the card */
-}
-
-.card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  word-wrap: break-word;  /* Ensures words break if needed */
-  overflow-wrap: break-word;
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
-
-.card-text {
-  font-size: 0.9rem;
-  margin-bottom: 4px; /* Reduces space between author and button */
-}
 
 .btn-sm {
   font-size: 0.85rem;
@@ -131,6 +99,43 @@ h3 {
   margin-top: auto; /* Ensures button stays at the bottom */
 }
 
+.card {
+  width: 18rem;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: initial;
+  text-justify: auto;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.btn-primary {
+  background-color: #6c63ff;
+  border-color: #6c63ff;
+}
+
+.btn-primary:hover {
+  background-color: #5848c2;
+  border-color: #5848c2;
+}
 
 </style>
 
@@ -226,29 +231,29 @@ h3 {
   
   
 
-  <div class="mt-5 mb-5">
+  <div class="container mt-5 mb-5">
     <div class="research-section">
         <h2 class="ms-5 text-center">RESEARCH ACTIVITIES <a href="#" class="view-all">view all research →</a></h2>
 
-        <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+        <marquee behavior="scroll" direction="left" scrollamount="7" onmouseover="this.stop();" onmouseout="this.start();">
           <div class="d-flex">
             {% for item in research %}
-            <div class="card m-2" style="width: auto; min-height: auto;">
-              <img src="{{ item.image.url }}" alt="Not Found" 
+            <div class="card m-2 shadow" style="width: 18rem; border-radius: 8px; overflow: hidden;">
+              <img src="{{ item.project_image.url }}" alt="Image not found" 
                    class="card-img-top" style="height: 200px; object-fit: cover;">
               <div class="card-body d-flex flex-column">
-                <h5 class="card-title">
+                <h5 class="card-title" style="font-size: 16px; font-weight: bold; color: #333; white-space: normal;">
                   {{ item.title }}
                 </h5>
-                <p class="card-text mb-2">
-                  <strong>Author:</strong> {{ item.author }}
+                <p class="card-text" style="font-size: 14px; color: #333; line-height: 1.5;">
+                  {{ item.description }}
                 </p>
-                <a href="#" class="btn btn-primary btn-sm align-self-start">Read More</a>
+                <a href="#" class="btn btn-primary btn-sm mt-auto" style="background-color: #6c63ff; border-color: #6c63ff;">View Details</a>
               </div>
             </div>
             {% endfor %}
           </div>
-        </marquee>
+        </marquee> 
     </div>      
 </div>
 
