@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn research_lab.wsgi:application --log-file -
+web: python manage.py migrate --noinput && gunicorn research_lab.wsgi
