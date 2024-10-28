@@ -233,7 +233,7 @@ h3 {
 
   <div class="container mt-5 mb-5">
     <div class="research-section">
-        <h2 class="ms-5 text-center">RESEARCH ACTIVITIES <a href="#" class="view-all">view all research →</a></h2>
+        <h2 class="ms-5 text-center">RESEARCH ACTIVITIES <a href="{% url 'lab_app:publication_list' %}" class="view-all">view all research →</a></h2>
 
         <marquee behavior="scroll" direction="left" scrollamount="7" onmouseover="this.stop();" onmouseout="this.start();">
           <div class="d-flex">
@@ -248,7 +248,7 @@ h3 {
                 <p class="card-text" style="font-size: 14px; color: #333; line-height: 1.5;">
                   {{ item.description }}
                 </p>
-                <a href="#" class="btn btn-primary btn-sm mt-auto" style="background-color: #6c63ff; border-color: #6c63ff;">View Details</a>
+                <a href="{% url 'lab_app:research_detail' item.id %}" class="btn btn-primary btn-sm mt-auto" style="background-color: #6c63ff; border-color: #6c63ff;">View Details</a>
               </div>
             </div>
             {% endfor %}
@@ -257,8 +257,32 @@ h3 {
     </div>      
 </div>
 
-
-
+<!-- Teachers Section -->
+<div class="teachers-section my-5">
+  <h2 class="text-center mb-4">Teachers</h2>
+  <div class="d-flex flex-wrap justify-content-center">
+    {% for profile in teachers_profiles %}
+      <div class="card m-2 shadow" style="width: 18rem; border-radius: 8px; overflow: hidden;">
+        <img src="{{ profile.profile_photo.url }}" alt="Profile Photo" class="card-img-top" style="height: 300px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title" style="font-size: 16px; font-weight: bold; color: #333;">
+            {{ profile.name }}
+          </h5>
+          <p class="card-text" style="font-size: 16px; color: #333;">
+            <strong></strong> {{ profile.position }}<br>
+            <strong>Department: </strong> {{ profile.department }}<br>
+            <strong>University: </strong> {{ profile.affiliation }}
+          </p>
+          <a href="{% url 'lab_app:people_profile_detail' profile.id %}" class="btn btn-sm btn-primary" style="background-color: #6c63ff; border-color: #6c63ff;text-align: center; align-items: center; margin-left: 70px;">
+            Profile Details
+          </a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No teachers found in this category.</p>
+    {% endfor %}
+  </div>
+</div>
 
 <!-- Carousel -->
 <h2 class='text-center'>Our Lab</h2>

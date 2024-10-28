@@ -16,12 +16,19 @@ def home_page_view(request):
     research = Research.objects.order_by('-uploaded_at') if Research.objects.exists() else None
     publication = Publication.objects.all() if Publication.objects.exists() else None
     profile = PeopleProfile.objects.first()
+    teachers_category = get_object_or_404(PeopleCategory, category="Teachers")
+    teachers_profiles = PeopleProfile.objects.filter(category=teachers_category)
+
+    ex_student = get_object_or_404(PeopleCategory, category="Ex-Student")
+    ex_student_profile = PeopleProfile.objects.filter(category=ex_student)
     context = {
         'banner_images': banner_images,
         'project': project,
         'research': research,
         'publication': publication,
         'profile':profile,
+        'teachers_profiles': teachers_profiles,
+        'ex_student_profile':ex_student_profile,
     }
     return render(request, 'lab_app/home.html', context)
 
