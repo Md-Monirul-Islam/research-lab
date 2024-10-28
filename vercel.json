@@ -1,9 +1,0 @@
-{
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "research_lab/wsgi.py"
-      }
-    ]
-  }
-  
