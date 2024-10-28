@@ -7,10 +7,19 @@ For more information on this file, see
 https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 
-import os
+# import os
 
+# from django.core.wsgi import get_wsgi_application
+
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'research_lab.settings')
+
+# application = get_wsgi_application()
+
+import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'research_lab.settings')
-
 application = get_wsgi_application()
+
+# Add this alias for Vercel
+app = application
