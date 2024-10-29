@@ -136,3 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS = {
     msg_class.ERROR:'danger'
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-production-2e916.up.railway.app",
+]
