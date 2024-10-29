@@ -137,6 +137,10 @@ h3 {
   border-color: #5848c2;
 }
 
+#read-more{
+  margin-bottom: 10px;
+}
+
 @media only screen and (max-width: 768px) {
   img{
     width: 100%;
@@ -145,6 +149,20 @@ h3 {
   }
   .setCenter{
     margin-left: 100px;
+  }
+  #read-more{
+  margin-bottom: 10px;
+}
+}
+
+@media only screen and (max-width: 480px) {
+  img{
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .setCenter{
+    margin-left: 20px;
   }
 }
 
@@ -176,7 +194,7 @@ h3 {
             </span>
           </p>
   
-          <a href="#" id="read-more" onclick="toggleText()">Read More</a>
+          <a href="#" class="mb-4" id="read-more" onclick="toggleText()">Read More</a>
         </div>
       </div>
   
