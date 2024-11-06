@@ -76,15 +76,17 @@ def signup_view(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            messages.success(request, 'Signup successfully')
+            category = form.cleaned_data.get('category')  # Get the selected category from the form
+            # Create a PeopleProfile with the selected category
+            PeopleProfile.objects.create(user=user, category=category)
+            # login(request, user)
+            messages.success(request, 'Signup successful')
             return redirect('lab_app:home_page_view')
         else:
-            messages.error(request, "Signup not successfully")
+            messages.error(request, "Signup not successful")
     else:
         form = SignUpForm()
     return render(request, 'lab_app/signup.html', {'form': form})
-
 
 
 @login_required
