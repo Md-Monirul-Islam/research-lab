@@ -138,5 +138,5 @@ MESSAGE_TAGS = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-2e916.up.railway.app",
+    "https://web-production-85b2.up.railway.app",
 ]
