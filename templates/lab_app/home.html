@@ -328,7 +328,9 @@ h3 {
   <div class="d-flex flex-wrap justify-content-center">
     {% for profile in ex_student_profiles %}
       <div class="card m-2 shadow" style="width: 18rem; border-radius: 8px; overflow: hidden;">
-        <img src="{{ profile.profile_photo.url }}" alt="Profile Photo" class="card-img-top" style="height: 300px; object-fit: cover;">
+        <img src="{% if profile.profile_photo %}{{ profile.profile_photo.url }}{% else %}/static/images/default_profile_photo.jpg{% endif %}" alt="Profile Photo" 
+        class="card-img-top" 
+        style="height: 300px; object-fit: cover;">
         <div class="card-body">
           <h5 class="card-title" style="font-size: 16px; font-weight: bold; color: #333;">
             {{ profile.name }}
