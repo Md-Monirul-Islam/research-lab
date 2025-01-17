@@ -215,7 +215,7 @@ def view_profile(request):
 @login_required
 def add_publication(request):
     if request.method == 'POST':
-        form = PublicationForm(request.POST)
+        form = PublicationForm(request.POST, request.FILES)  # Include request.FILES for file handling
         if form.is_valid():
             publication = form.save(commit=False)
             publication.author = request.user.peopleprofile  # Assign the logged-in user's profile
@@ -223,7 +223,7 @@ def add_publication(request):
             messages.success(request, 'Publication added successfully')
             return redirect('lab_app:view_publications')
         else:
-            messages.error(request, "Somethings went wrong!!")
+            messages.error(request, "Something went wrong!")
     else:
         form = PublicationForm()
 
@@ -241,16 +241,17 @@ def view_publications(request):
 
 @login_required
 def update_publication(request, pk):
+    # Fetch the publication instance for the given pk and author
     publication = get_object_or_404(Publication, pk=pk, author=request.user.peopleprofile)
 
     if request.method == 'POST':
-        form = PublicationForm(request.POST, instance=publication)
+        form = PublicationForm(request.POST, request.FILES, instance=publication)  # Include request.FILES
         if form.is_valid():
             form.save()
-            messages.success(request, 'Publication update successfully')
+            messages.success(request, 'Publication updated successfully')
             return redirect('lab_app:view_publications')
         else:
-            messages.error(request, "Somethings went wrong!!")
+            messages.error(request, "Something went wrong!")
     else:
         form = PublicationForm(instance=publication)
 
