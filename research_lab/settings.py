@@ -25,9 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-10a&me5uq@n10r(y6_v56j5^sa9r^t*78=habuy9j!7hv9m(o*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['103.159.2.108','pharmabio.gebt.just.edu.bd']
 
 
 # Application definition
@@ -50,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 STATICSTORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'research_lab.urls'
@@ -115,6 +116,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+#STATIC_URL = '/static/'
+#MEDIA_URL = '/media/'
+
+#STATIC_ROOT = '/home/just/research-lab/staticfiles/'
+#MEDIA_ROOT = '/home/just/research-lab/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -137,6 +143,3 @@ MESSAGE_TAGS = {
     msg_class.ERROR:'danger'
 }
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-85b2.up.railway.app",
-]

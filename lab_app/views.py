@@ -18,23 +18,31 @@ def home_page_view(request):
     profile = PeopleProfile.objects.first()
 
     # Fetch Teachers profiles
-    teachers_category = get_object_or_404(PeopleCategory, category="Teachers")
-    teachers_profiles = PeopleProfile.objects.filter(category=teachers_category)
+    teachers_profiles = []
+    try:
+        teachers_category = PeopleCategory.objects.get(category="Teachers")
+        teachers_profiles = PeopleProfile.objects.filter(category=teachers_category)
+    except PeopleCategory.DoesNotExist:
+        pass  # If Teachers category doesn't exist, keep empty list
 
     # Fetch Ex-Student profiles
-    ex_student_category = get_object_or_404(PeopleCategory, category="Ex-Student")
-    ex_student_profiles = PeopleProfile.objects.filter(category=ex_student_category)
+    ex_student_profiles = []
+    try:
+        ex_student_category = PeopleCategory.objects.get(category="Ex-Student")
+        ex_student_profiles = PeopleProfile.objects.filter(category=ex_student_category)
+    except PeopleCategory.DoesNotExist:
+        pass  # If Ex-Student category doesn't exist, keep empty list
+
     context = {
         'banner_images': banner_images,
         'project': project,
         'research': research,
         'publication': publication,
-        'profile':profile,
+        'profile': profile,
         'teachers_profiles': teachers_profiles,
         'ex_student_profiles': ex_student_profiles,
     }
     return render(request, 'lab_app/home.html', context)
-
 
 
 
