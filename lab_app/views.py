@@ -8,8 +8,44 @@ from django.views.generic import DetailView
 from django.http import Http404
 from lab_app.forms import AboutForm, BannerImageForm, CentralContactForm, ContactForm, ContactUsForm, EducationForm, ImageGalleryForm,LoginForm, PeopleCategoryForm, PeopleProfileForm, ProjectForm, PublicationForm, ResearchForm, ResearchInterestForm, SignUpForm
 from lab_app.models import About, BannerImage, CentralContact, Contact, ContactUs, Education, ImageGallery, PeopleCategory, PeopleProfile, Project, Publication, Research, ResearchInterest
+from django.db.models import Case, When, Value, IntegerField, CharField
+from django.db.models.functions import Lower
 
 # Create your views here.
+# def home_page_view(request):
+#     banner_images = BannerImage.objects.order_by('-uploaded_at')[:3]
+#     project = Project.objects.all() if Project.objects.exists() else None
+#     research = Research.objects.order_by('-uploaded_at') if Research.objects.exists() else None
+#     publication = Publication.objects.all() if Publication.objects.exists() else None
+#     profile = PeopleProfile.objects.first()
+
+#     # Fetch Teachers profiles
+#     teachers_profiles = []
+#     try:
+#         teachers_category = PeopleCategory.objects.get(category="Teachers")
+#         teachers_profiles = PeopleProfile.objects.filter(category=teachers_category)
+#     except PeopleCategory.DoesNotExist:
+#         pass  # If Teachers category doesn't exist, keep empty list
+
+#     # Fetch Ex-Student profiles
+#     ex_student_profiles = []
+#     try:
+#         ex_student_category = PeopleCategory.objects.get(category="Ex-Student")
+#         ex_student_profiles = PeopleProfile.objects.filter(category=ex_student_category)
+#     except PeopleCategory.DoesNotExist:
+#         pass  # If Ex-Student category doesn't exist, keep empty list
+
+#     context = {
+#         'banner_images': banner_images,
+#         'project': project,
+#         'research': research,
+#         'publication': publication,
+#         'profile': profile,
+#         'teachers_profiles': teachers_profiles,
+#         'ex_student_profiles': ex_student_profiles,
+#     }
+#     return render(request, 'lab_app/home.html', context)
+
 def home_page_view(request):
     banner_images = BannerImage.objects.order_by('-uploaded_at')[:3]
     project = Project.objects.all() if Project.objects.exists() else None
@@ -21,7 +57,28 @@ def home_page_view(request):
     teachers_profiles = []
     try:
         teachers_category = PeopleCategory.objects.get(category="Teachers")
-        teachers_profiles = PeopleProfile.objects.filter(category=teachers_category)
+        # Define custom order for positions (case-insensitive)
+        position_order = [
+            "professor",
+            "associate professor",
+            "assistant professor",
+            "lecturer",
+        ]
+        teachers_profiles = (
+            PeopleProfile.objects.filter(category=teachers_category)
+            .annotate(
+                normalized_position=Lower("position"),  # Normalize case for position field
+                position_priority=Case(
+                    *[
+                        When(normalized_position=pos, then=Value(i))
+                        for i, pos in enumerate(position_order)
+                    ],
+                    default=Value(len(position_order)),  # Default to the lowest priority
+                    output_field=IntegerField(),
+                )
+            )
+            .order_by("position_priority", "name")  # Sort by priority and name
+        )
     except PeopleCategory.DoesNotExist:
         pass  # If Teachers category doesn't exist, keep empty list
 
@@ -43,6 +100,7 @@ def home_page_view(request):
         'ex_student_profiles': ex_student_profiles,
     }
     return render(request, 'lab_app/home.html', context)
+
 
 
 
@@ -668,19 +726,112 @@ def add_category(request):
 
 
 
+# def people_list(request):
+#     categories = PeopleCategory.objects.all()
+#     profiles = PeopleProfile.objects.exclude(category__category="Default Category")
+#     return render(request, 'lab_app/people_list.html', {'categories': categories, 'profiles': profiles})
+
+from django.db.models import Case, When, Value, IntegerField
+from django.db.models.functions import Lower
+from django.shortcuts import render
+
 def people_list(request):
     categories = PeopleCategory.objects.all()
-    profiles = PeopleProfile.objects.exclude(category__category="Default Category")
+    
+    # Define the exact order of positions/categories (case-insensitive)
+    position_order = [
+        "Professor",            # Highest priority
+        "Associate Professor",  # Second priority
+        "Assistant Professor",  # Third priority
+        "Lecturer",             # Fourth priority
+        "PhD Students",
+        "M.Phil",
+        "Master's Students",    # Higher priority than Honors and Ex-Students
+        "Honors Students",      # Higher priority than Ex-Students
+        "Ex-Student",           # Lowest priority
+    ]
+    
+    # Fetch profiles excluding "Default Category" and those with empty name or position
+    profiles = (
+        PeopleProfile.objects.exclude(category__category="Default Category")
+        .exclude(name__isnull=True, position__isnull=True)  # Exclude profiles with both name and position empty
+        .exclude(name="", position="")                     # Exclude profiles with empty strings in both name and position
+        .annotate(
+            normalized_position=Lower("position"),  # Normalize the position field to lowercase for comparison
+            position_priority=Case(
+                *[When(normalized_position=pos.lower(), then=Value(i)) for i, pos in enumerate(position_order)],
+                default=Value(len(position_order)),  # Default to lowest priority
+                output_field=IntegerField(),
+            ),
+            category_priority=Case(
+                *[When(category__category=cat, then=Value(i)) for i, cat in enumerate(position_order)],
+                default=Value(len(position_order)),  # Default to lowest priority
+                output_field=IntegerField(),
+            ),
+        )
+        .order_by("position_priority", "category_priority", "name")  # Order by position, category, and then name
+    )
+    
+    # Debugging: Check what is being excluded
+    for profile in profiles:
+        print(
+            f"Name: {profile.name}, Position: {profile.position}, "
+            f"Normalized Position: {profile.normalized_position}, Priority: {profile.position_priority}, "
+            f"Category: {profile.category}, Category Priority: {profile.category_priority}"
+        )
+    
     return render(request, 'lab_app/people_list.html', {'categories': categories, 'profiles': profiles})
 
+
+
+
+
+# def category_people_list(request, category_name):
+#     try:
+#         category = PeopleCategory.objects.get(category=category_name)
+#         profiles = PeopleProfile.objects.filter(category=category)
+#         return render(request, 'lab_app/category_people_list.html', {'category': category, 'profiles': profiles})
+#     except PeopleCategory.DoesNotExist:
+#         return render(request, 'lab_app/category_people_list.html', {'category': None, 'profiles': []})
 
 def category_people_list(request, category_name):
     try:
         category = PeopleCategory.objects.get(category=category_name)
-        profiles = PeopleProfile.objects.filter(category=category)
+        
+        # Define the order of positions (case-insensitive)
+        position_order = [
+            "professor",
+            "associate professor",
+            "assistant professor",
+            "lecturer",
+            "PhD Students",
+            "M.Phil",
+            "Master's Students",
+            "Honors Students",
+            "Ex-Student",
+
+        ]
+        
+        # Fetch and order profiles by position priority
+        profiles = (
+            PeopleProfile.objects.filter(category=category)
+            .annotate(
+                normalized_position=Lower("position"),  # Normalize the position field to lowercase
+                position_priority=Case(
+                    *[
+                        When(normalized_position=pos, then=Value(i))
+                        for i, pos in enumerate(position_order)
+                    ],
+                    default=Value(len(position_order)),  # Default to the lowest priority
+                    output_field=IntegerField(),
+                )
+            )
+            .order_by("position_priority", "name")  # Order by priority and name
+        )
         return render(request, 'lab_app/category_people_list.html', {'category': category, 'profiles': profiles})
     except PeopleCategory.DoesNotExist:
         return render(request, 'lab_app/category_people_list.html', {'category': None, 'profiles': []})
+
 
 
 
